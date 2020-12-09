@@ -1,0 +1,11 @@
+.paper {
+  padding: 3vh 8vh;
+  text-align: center;
+  margin-left: 5px;
+}
+.paper:hover {
+  background-color: #c4c4c4;
+}
+.link-content {
+  text-decoration: none;
+}
