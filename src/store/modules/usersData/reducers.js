@@ -2,11 +2,12 @@ import { UPDATE_USERSDATA } from "./actionsType";
 const initialState = {
   selectedUser: {},
   loggedUser: {
+    headerToken: "",
     token: "",
     user: {},
   },
   usersFilters: {
-    perPage: 500,
+    perPage: 15,
     page: 1,
     tech: "",
   },

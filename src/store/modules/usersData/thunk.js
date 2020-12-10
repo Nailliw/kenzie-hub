@@ -1,10 +1,11 @@
 import { updateUserData } from "./actions";
+import { api } from "../../../services/api";
 import axios from "axios";
 
 export const registerUserDataThunk = (userData) => {
   return (dispatch) => {
-    axios
-      .post(`https://kenziehub.me/users`, userData)
+    api
+      .post(`/users`, userData)
       .then((res) => {
         console.log(res);
       })
@@ -24,10 +25,8 @@ export const getUsersThunk = () => {
 
     window.localStorage.setItem("usersFilters", JSON.stringify(usersFilters));
 
-    axios
-      .get(
-        `https://kenziehub.me/users?perPage=${perPage}&page=${page}&tech=${tech}`
-      )
+    api
+      .get(`/users?perPage=${perPage}&page=${page}&tech=${tech}`)
       .then((res) => {
         console.log(res);
 
@@ -68,8 +67,8 @@ export const selectUserThunk = (userId) => {
   return (dispatch, getState) => {
     const { UsersDataReducer } = getState();
 
-    axios
-      .get(`https://kenziehub.me/users/${userId}`)
+    api
+      .get(`/users/${userId}`)
       .then((res) => {
         console.log(res);
 
@@ -101,13 +100,18 @@ export const loginUserThunk = (userLoginData) => {
 
     console.log(UsersDataReducer);
 
-    axios
-      .post(`https://kenziehub.me/sessions`, userLoginData)
+    api
+      .post(`/sessions`, userLoginData)
       .then((res) => {
         console.log(res);
         const newState = {
           ...UsersDataReducer,
-          loggedUser: res.data,
+          loggedUser: {
+            ...res.data,
+            headersToken: {
+              headers: { Authorization: "Bearer " + res.data.token },
+            },
+          },
         };
 
         console.log(newState);
@@ -131,13 +135,11 @@ export const addUserTechThunk = (userTech) => {
 
     let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
 
-    let validation = {
-      headers: { Authorization: "Bearer " + loggedUser.token },
-    };
+    let validation = loggedUser.headersToken;
 
     console.log(validation);
-    axios
-      .post(`https://kenziehub.me/users/techs`, userTech, validation)
+    api
+      .post(`/users/techs`, userTech, validation)
       .then((res) => {
         console.log(res);
       })
