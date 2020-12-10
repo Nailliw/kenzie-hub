@@ -97,7 +97,6 @@ export const selectUserThunk = (userId) => {
 export const loginUserThunk = (userLoginData) => {
 	return (dispatch, getState) => {
 		const { UsersDataReducer } = getState();
-
 		console.log(UsersDataReducer);
 
 		api
