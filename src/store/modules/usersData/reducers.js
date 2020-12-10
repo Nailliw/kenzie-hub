@@ -1,4 +1,4 @@
-import { UPDATE_USERSDATA } from "./actionsTypes";
+import { UPDATE_USERSDATA } from "./actionsType";
 const initialState = {
 	selectedUser: {},
 	loggedUser: {

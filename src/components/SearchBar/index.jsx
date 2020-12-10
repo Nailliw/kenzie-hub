@@ -1,3 +1,5 @@
+import "./styles.css";
+
 const SearchBar = () => {
 	return (
 		<div className="searchBar">

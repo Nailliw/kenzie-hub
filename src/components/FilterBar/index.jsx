@@ -1,5 +1,7 @@
+import "./styles.css";
+
 const FilterBar = () => {
-	return <div>Filters</div>;
+	return <div className="filterBar">Filters</div>;
 };
 
 export default FilterBar;

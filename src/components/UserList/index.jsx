@@ -1,29 +1,16 @@
-import axios from "axios";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-import { useSelector, useDispatch } from "react-redux";
-import { addUserData } from "../../store/modules/usersData/thunk";
-
+import "./styles.css";
 import UserCard from "../UserCard";
 
 const UserList = () => {
-	const dispatch = useDispatch();
-
-	const usersData = useSelector(
+	const usersList = useSelector(
 		({ UsersDataReducer: { usersList } }) => usersList
 	);
-	console.log(usersData);
-
-	useEffect(() => {
-		axios
-			.get("https://kenziehub.me/users")
-			.then((res) => dispatch(addUserData(res.data)))
-			.catch((err) => console.log(err));
-	}, []);
 
 	return (
-		<div>
-			{usersData.map((user, index) => {
+		<div className="list">
+			{usersList.map((user, index) => {
 				return <UserCard key={index} user={user} />;
 			})}
 		</div>
