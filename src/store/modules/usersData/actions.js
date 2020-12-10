@@ -1,4 +1,4 @@
-import { UPDATE_USERSDATA } from "./actionsTypes";
+import { UPDATE_USERSDATA } from "./actionsType";
 
 export const updateUserData = (newState) => ({
   type: UPDATE_USERSDATA,
