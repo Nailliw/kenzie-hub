@@ -8,7 +8,7 @@ const Login = () => {
   const history = useHistory();
   const schema = yup.object().shape({
     email: yup.string().email().required("Campo obrigatorio"),
-    password: yup.string().required("campo obrigatorio"),
+    password: yup.string().required("Campo obrigatorio"),
   });
 
   const { register, handleSubmit, watch, errors, setError } = useForm({
@@ -31,7 +31,7 @@ const Login = () => {
       <div>Login</div>
       <form onSubmit={handleSubmit(handleForm)}>
         <input placeholder="Insert Email" name="email" ref={register}></input>
-        <p style={{ color: "red" }}>{errors.user?.message}</p>
+        <p style={{ color: "red" }}>{errors.email?.message}</p>
         <input
           placeholder="Insert Password"
           name="password"
