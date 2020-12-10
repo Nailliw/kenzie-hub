@@ -2,6 +2,7 @@ import { updateUserData } from "./actions";
 import { api } from "../../../services/api";
 
 export const registerUserDataThunk = (userData) => {
+<<<<<<< HEAD
   console.log(userData);
   return (dispatch) => {
     api
@@ -14,138 +15,150 @@ export const registerUserDataThunk = (userData) => {
         console.log(error);
       });
   };
+=======
+	return (dispatch) => {
+		api
+			.post(`/users`, userData)
+			.then((res) => {
+				console.log(res);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+>>>>>>> aea1c26267502fa8d0955252221f7fa1cced581e
 };
 
 export const getUsersThunk = () => {
-  return (dispatch, getState) => {
-    const { UsersDataReducer } = getState();
-    const { usersFilters } = UsersDataReducer;
-    const { perPage } = usersFilters;
-    const { page } = usersFilters;
-    const { tech } = usersFilters;
+	return (dispatch, getState) => {
+		const { UsersDataReducer } = getState();
+		const { usersFilters } = UsersDataReducer;
+		const { perPage } = usersFilters;
+		const { page } = usersFilters;
+		const { tech } = usersFilters;
 
-    window.localStorage.setItem("usersFilters", JSON.stringify(usersFilters));
+		window.localStorage.setItem("usersFilters", JSON.stringify(usersFilters));
 
-    api
-      .get(`/users?perPage=${perPage}&page=${page}&tech=${tech}`)
-      .then((res) => {
-        console.log(res);
+		api
+			.get(`/users?perPage=${perPage}&page=${page}&tech=${tech}`)
+			.then((res) => {
+				console.log(res);
 
-        const newState = {
-          ...UsersDataReducer,
-          usersList: res.data,
-        };
+				const newState = {
+					...UsersDataReducer,
+					usersList: res.data,
+				};
 
-        const { usersList } = newState;
+				const { usersList } = newState;
 
-        window.localStorage.setItem("usersList", JSON.stringify(usersList));
+				window.localStorage.setItem("usersList", JSON.stringify(usersList));
 
-        console.log(newState);
+				console.log(newState);
 
-        dispatch(updateUserData(newState));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+				dispatch(updateUserData(newState));
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 };
 
 export const setUsersFiltersThunk = (newUsersFilters) => {
-  return (dispatch, getState) => {
-    const { UsersDataReducer } = getState();
+	return (dispatch, getState) => {
+		const { UsersDataReducer } = getState();
 
-    const newState = {
-      ...UsersDataReducer,
-      usersFilters: newUsersFilters,
-    };
+		const newState = {
+			...UsersDataReducer,
+			usersFilters: newUsersFilters,
+		};
 
-    dispatch(updateUserData(newState));
-    dispatch(getUsersThunk());
-  };
+		dispatch(updateUserData(newState));
+		dispatch(getUsersThunk());
+	};
 };
 
 export const selectUserThunk = (userId) => {
-  return (dispatch, getState) => {
-    const { UsersDataReducer } = getState();
+	return (dispatch, getState) => {
+		const { UsersDataReducer } = getState();
 
-    api
-      .get(`/users/${userId}`)
-      .then((res) => {
-        console.log(res);
+		api
+			.get(`/users/${userId}`)
+			.then((res) => {
+				console.log(res);
 
-        const newState = {
-          ...UsersDataReducer,
-          selectedUser: res.data,
-        };
+				const newState = {
+					...UsersDataReducer,
+					selectedUser: res.data,
+				};
 
-        console.log(newState);
+				console.log(newState);
 
-        const { selectedUser } = newState;
+				const { selectedUser } = newState;
 
-        window.localStorage.setItem(
-          "selectedUser",
-          JSON.stringify(selectedUser)
-        );
+				window.localStorage.setItem(
+					"selectedUser",
+					JSON.stringify(selectedUser)
+				);
 
-        dispatch(updateUserData(newState));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+				dispatch(updateUserData(newState));
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 };
 
 export const loginUserThunk = (userLoginData) => {
-  return (dispatch, getState) => {
-    const { UsersDataReducer } = getState();
-    console.log(UsersDataReducer);
+	return (dispatch, getState) => {
+		const { UsersDataReducer } = getState();
+		console.log(UsersDataReducer);
 
-    api
-      .post(`/sessions`, userLoginData)
-      .then((res) => {
-        console.log(res);
+		api
+			.post(`/sessions`, userLoginData)
+			.then((res) => {
+				console.log(res);
 
-        const newState = {
-          ...UsersDataReducer,
-          loggedUser: {
-            ...res.data,
-            headersToken: {
-              headers: { Authorization: "Bearer " + res.data.token },
-            },
-          },
-        };
+				const newState = {
+					...UsersDataReducer,
+					loggedUser: {
+						...res.data,
+						headersToken: {
+							headers: { Authorization: "Bearer " + res.data.token },
+						},
+					},
+				};
 
-        console.log(newState);
+				console.log(newState);
 
-        const { loggedUser } = newState;
-        window.localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+				const { loggedUser } = newState;
+				window.localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
 
-        dispatch(updateUserData(newState));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+				dispatch(updateUserData(newState));
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 };
 
 export const addUserTechThunk = (userTech) => {
-  return (dispatch, getState) => {
-    const { UsersDataReducer } = getState();
+	return (dispatch, getState) => {
+		const { UsersDataReducer } = getState();
 
-    console.log(UsersDataReducer);
+		console.log(UsersDataReducer);
 
-    let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
+		let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
 
-    let validation = loggedUser.headersToken;
+		let validation = loggedUser.headersToken;
 
-    console.log(validation);
-    api
-      .post(`/users/techs`, userTech, validation)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+		console.log(validation);
+		api
+			.post(`/users/techs`, userTech, validation)
+			.then((res) => {
+				console.log(res);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 };
