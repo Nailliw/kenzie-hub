@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 
-const Profile = (isProfile = false) => {
-  //usar useParams para pegar id da url
-
+const Profile = () => {
+  let isProfile = false;
   const [id, setId] = useState("8b8e50a6-50c2-4718-b817-2d38cad0c8f4");
   const params = useParams();
   const [token, setToken] = useState(
@@ -14,17 +13,25 @@ const Profile = (isProfile = false) => {
   const headers = { Authorization: "Bearer " + token };
 
   useEffect(() => {
-    axios
-      .get(
-        isProfile === true
-          ? `https://kenziehub.me/users/${id}${console.log("teste")}`
-          : `https://kenziehub.me/profile`,
-        { headers }
-      )
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => console.log(err));
+    if (isProfile) {
+      axios
+        .get(`https://kenziehub.me/profile`, {
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((err) => console.log(err));
+      console.log("perfil");
+    } else {
+      axios
+        .get(`https://kenziehub.me/users/${params.userID}`)
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((err) => console.log(err));
+      console.log("nao perfil");
+    }
   }, []);
   console.log(data);
   console.log(headers);
