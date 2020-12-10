@@ -1,13 +1,18 @@
 import './styles.css';
-import { Box, Button, Grid, Paper } from '@material-ui/core';
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  Box,
+  Button,
+  Grid,
+  Paper,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+} from '@material-ui/core';
+import React, { useState } from 'react';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import SendIcon from '@material-ui/icons/Send';
 import { Link } from 'react-router-dom';
-/*
-!1 - criar um menu de tabs dentro de um Grid
-2 - um outro menu em lista que inicialmente permanece escondido
-3 - criamos seletores que ativam o menu que estava escondido, e esconde o que inicialmente é mostrado para o desktop
-*/
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -17,11 +22,51 @@ const useStyles = makeStyles(() => ({
     marginRight: 50,
   },
 }));
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    '&:focus': {
+      backgroundColor: theme.palette.primary.main,
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem);
 
 const HeaderLinks = ({ isLoggged = false }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const classes = useStyles();
 
-  return (
+  return isLoggged ? (
     <Box bgcolor="white">
       <Grid container direction="row" justify="flex-end" alignItems="center">
         <Link className="link-content" to="/">
@@ -35,13 +80,60 @@ const HeaderLinks = ({ isLoggged = false }) => {
           </Paper>
         </Link>
         <Link className="link-content" to="/login">
-          <Paper square={true} variant="outlined" className="paper"></Paper>
+          <Paper square={true} variant="outlined" className="paper">
+            Login
+          </Paper>
         </Link>
         <Link className="link-content" to="/signup">
-          <Button variant="outlined" className={classes.button} color="white">
+          <Button variant="outlined" id="btn-unlogged">
             Cadastre-se
           </Button>
         </Link>
+      </Grid>
+    </Box>
+  ) : (
+    <Box bgcolor="white">
+      <Grid container direction="row" justify="flex-end" alignItems="center">
+        <Link className="link-content" to="/">
+          <Paper square={true} variant="outlined" className="paper">
+            HOME
+          </Paper>
+        </Link>
+        <Link className="link-content" to="/users">
+          <Paper square={true} variant="outlined" className="paper">
+            USERS
+          </Paper>
+        </Link>
+        <Button
+          id="btn-logged"
+          aria-controls="customized-menu"
+          aria-haspopup="true"
+          variant="contained"
+          color="primary"
+          onClick={handleClick}
+        >
+          Open Menu
+        </Button>
+        <StyledMenu
+          id="customized-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <StyledMenuItem>
+            <ListItemIcon>
+              <SendIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Profile" />
+          </StyledMenuItem>
+          <StyledMenuItem>
+            <ListItemIcon>
+              <SendIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Edit" />
+          </StyledMenuItem>
+        </StyledMenu>
       </Grid>
     </Box>
   );

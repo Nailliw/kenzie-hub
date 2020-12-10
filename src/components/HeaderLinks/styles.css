@@ -9,3 +9,17 @@
 .link-content {
   text-decoration: none;
 }
+
+#btn-unlogged {
+  color: 'white';
+  background-color: #3137bc;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#btn-logged {
+  color: 'white';
+  background-color: violet;
+  margin-left: 50px !important;
+  margin-right: 50px !important;
+}
