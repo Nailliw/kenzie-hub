@@ -1,6 +1,5 @@
 import { updateUserData } from "./actions";
 import { api } from "../../../services/api";
-import axios from "axios";
 
 export const registerUserDataThunk = (userData) => {
 	return (dispatch) => {
@@ -103,6 +102,7 @@ export const loginUserThunk = (userLoginData) => {
 			.post(`/sessions`, userLoginData)
 			.then((res) => {
 				console.log(res);
+
 				const newState = {
 					...UsersDataReducer,
 					loggedUser: {
