@@ -1,8 +1,19 @@
-import "./App.css";
-import Routes from "./Routes";
+import './App.css';
+import NavBarMobile from './components/NavBarMobile';
+import NavBarDesktop from './components/NavBarDesktop';
+import Routes from './routes/index';
+import { useState } from 'react';
 
 const App = () => {
-	return <Routes />;
+  const [screenWidth, setScreenWidth] = useState(window.screen.width);
+
+  return (
+    <>
+      {screenWidth > 700 ? <NavBarDesktop /> : <NavBarMobile />}
+
+      <Routes />
+    </>
+  );
 };
 
 export default App;
