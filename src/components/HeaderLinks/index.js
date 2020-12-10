@@ -8,6 +8,7 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
+  Avatar,
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -85,9 +86,11 @@ const HeaderLinks = ({ isLoggged = false }) => {
           </Paper>
         </Link>
         <Link className="link-content" to="/signup">
-          <Button variant="outlined" id="btn-unlogged">
-            Cadastre-se
-          </Button>
+          <div className="btn-style">
+            <Button variant="outlined" id="btn-unlogged">
+              Cadastre-se
+            </Button>
+          </div>
         </Link>
       </Grid>
     </Box>
@@ -104,16 +107,20 @@ const HeaderLinks = ({ isLoggged = false }) => {
             USERS
           </Paper>
         </Link>
-        <Button
-          id="btn-logged"
-          aria-controls="customized-menu"
-          aria-haspopup="true"
-          variant="contained"
-          color="primary"
-          onClick={handleClick}
-        >
-          Open Menu
-        </Button>
+        <div className="btn-style">
+          {' '}
+          <Button
+            id="btn-logged"
+            aria-controls="customized-menu"
+            aria-haspopup="true"
+            variant="contained"
+            color="primary"
+            onClick={handleClick}
+          >
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          </Button>
+        </div>
+
         <StyledMenu
           id="customized-menu"
           anchorEl={anchorEl}
@@ -122,16 +129,14 @@ const HeaderLinks = ({ isLoggged = false }) => {
           onClose={handleClose}
         >
           <StyledMenuItem>
-            <ListItemIcon>
-              <SendIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText primary="Profile" />
+            <Link to="/users/:userID/edit">
+              <ListItemText primary="Profile" />
+            </Link>
           </StyledMenuItem>
           <StyledMenuItem>
-            <ListItemIcon>
-              <SendIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText primary="Edit" />
+            <Link to="/users/:userID">
+              <ListItemText primary="Edit" />
+            </Link>
           </StyledMenuItem>
         </StyledMenu>
       </Grid>
