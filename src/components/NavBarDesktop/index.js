@@ -6,23 +6,13 @@ import {
   Paper,
   Menu,
   MenuItem,
-  ListItemIcon,
   ListItemText,
   Avatar,
 } from '@material-ui/core';
 import React, { useState } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import SendIcon from '@material-ui/icons/Send';
+import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-
-const useStyles = makeStyles(() => ({
-  button: {
-    color: 'white',
-    background: '#3137BC',
-    marginLeft: 50,
-    marginRight: 50,
-  },
-}));
+import { useSelector } from 'react-redux';
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
@@ -54,21 +44,44 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const HeaderLinks = ({ isLoggged = false }) => {
+const NavBarDesktop = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const token = useSelector(
+    ({
+      UsersDataReducer: {
+        loggedUser: { token },
+      },
+    }) => token,
+  );
+  const user_id = useSelector(
+    ({
+      UsersDataReducer: {
+        loggedUser: {
+          user: { id },
+        },
+      },
+    }) => id,
+  );
+  const user_avatar = useSelector(
+    ({
+      UsersDataReducer: {
+        loggedUser: {
+          user: { avatar_url },
+        },
+      },
+    }) => avatar_url,
+  );
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const classes = useStyles();
-
-  return isLoggged ? (
-    <Box bgcolor="white">
+  return token === 'as' ? (
+    <Box bgcolor="#3F51B5">
       <Grid container direction="row" justify="flex-end" alignItems="center">
         <Link className="link-content" to="/">
           <Paper square={true} variant="outlined" className="paper">
@@ -87,7 +100,7 @@ const HeaderLinks = ({ isLoggged = false }) => {
         </Link>
         <Link className="link-content" to="/signup">
           <div className="btn-style">
-            <Button variant="outlined" id="btn-unlogged">
+            <Button variant="outlined" color="primary" id="btn-unlogged">
               Cadastre-se
             </Button>
           </div>
@@ -117,7 +130,7 @@ const HeaderLinks = ({ isLoggged = false }) => {
             color="primary"
             onClick={handleClick}
           >
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <Avatar alt="Remy Sharp" src={user_avatar} />
           </Button>
         </div>
 
@@ -129,13 +142,18 @@ const HeaderLinks = ({ isLoggged = false }) => {
           onClose={handleClose}
         >
           <StyledMenuItem>
-            <Link to="/users/:userID/edit">
+            <Link to={`/users/:${user_id}`}>
               <ListItemText primary="Profile" />
             </Link>
           </StyledMenuItem>
           <StyledMenuItem>
-            <Link to="/users/:userID">
-              <ListItemText primary="Edit" />
+            <Link to={`/users/:${user_id}/edit`}>
+              <ListItemText primary="Edit Profile" />
+            </Link>
+          </StyledMenuItem>
+          <StyledMenuItem>
+            <Link to="/">
+              <ListItemText primary="Logout" />
             </Link>
           </StyledMenuItem>
         </StyledMenu>
@@ -144,4 +162,4 @@ const HeaderLinks = ({ isLoggged = false }) => {
   );
 };
 
-export default HeaderLinks;
+export default NavBarDesktop;

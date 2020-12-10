@@ -1,5 +1,5 @@
 .paper {
-  padding: 3vh 8vh;
+  padding: 2.5vh 8vh;
   text-align: center;
   margin-left: 5px;
 }
@@ -14,8 +14,7 @@
 }
 
 #btn-unlogged {
-  color: 'white';
-  background-color: #3137bc;
+  background-color: wheat;
   margin-left: 50px;
   margin-right: 50px;
 }
