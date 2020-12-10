@@ -2,11 +2,13 @@ import { updateUserData } from "./actions";
 import { api } from "../../../services/api";
 
 export const registerUserDataThunk = (userData) => {
+  console.log(userData);
   return (dispatch) => {
     api
-      .post(`/users`, userData)
+      .post(`/users`, { ...userData })
       .then((res) => {
         console.log(res);
+        console.log("registrado");
       })
       .catch((error) => {
         console.log(error);
