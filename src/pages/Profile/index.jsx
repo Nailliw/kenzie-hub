@@ -75,7 +75,7 @@ const Profile = () => {
             ))}
           </div>
           <button>
-            <Link to="/profile/edit">Editar Perfil</Link>
+            <Link to="edit">Editar Perfil</Link>
           </button>
         </div>
       )}
