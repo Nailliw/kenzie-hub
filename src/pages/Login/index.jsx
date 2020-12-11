@@ -12,19 +12,18 @@ const Login = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.UsersDataReducer);
   const history = useHistory();
-  const [invalid, setInvalid] = useState("");
 
   const schema = yup.object().shape({
-    email: yup.string().email().required("Campo obrigatorio"),
-    password: yup.string().required("Campo obrigatorio"),
+    email: yup.string().email().required("Required field"),
+    password: yup.string().required("Required field"),
   });
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, setError } = useForm({
     resolver: yupResolver(schema),
   });
 
   const handleForm = (data) => {
-    dispatch(loginUserThunk(data, setInvalid));
+    dispatch(loginUserThunk(data, setError));
   };
 
   useEffect(() => {
@@ -39,8 +38,7 @@ const Login = () => {
       <form onSubmit={handleSubmit(handleForm)}>
         <h1>Login</h1>
         <TextField
-          id="filled-basic"
-          variant="filled"
+          variant="outlined"
           label="Email"
           name="email"
           margin="normal"
@@ -51,8 +49,7 @@ const Login = () => {
         ></TextField>
 
         <TextField
-          id="filled-basic"
-          variant="filled"
+          variant="outlined"
           label="Password"
           name="password"
           inputRef={register}
@@ -66,12 +63,12 @@ const Login = () => {
           type="submit"
           variant="contained"
           color="primary"
-          size="small"
           margin="normal"
         >
           Logar
         </Button>
-        <p style={{ color: "red" }}>{invalid}</p>
+
+        <p style={{ color: "red" }}>{errors.userLogin?.message}</p>
       </form>
     </>
   );
