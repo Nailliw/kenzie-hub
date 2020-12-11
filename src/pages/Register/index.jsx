@@ -3,21 +3,39 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import React, { useState, useEffect } from "react";
 import "./style.css";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
-import {
-  registerUserDataThunk,
-  loginUserThunk,
-  getUsersThunk,
-  selectUserThunk,
-  addUserTechThunk,
-  setUsersFiltersThunk,
-} from "../../store/modules/usersData/thunk";
+import { registerUserDataThunk } from "../../store/modules/usersData/thunk";
 import { useSelector, useDispatch } from "react-redux";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
   let dispatch = useDispatch();
   let token = useSelector((state) => state.UsersDataReducer.loggedUser);
+  const history = useHistory();
+
+  const schema = yup.object().shape({
+    name: yup
+      .string()
+      .min(3, "Nome deve conter no mínimo 3 letras")
+      .required("Campo obrigatorio"),
+    email: yup.string().email("Email invalido").required("Campo obrigatório"),
+    bio: yup.string().required("Campo obrigatório"),
+    contact: yup.string().required("Campo obrigatório"),
+    course_module: yup.string().required("Campo obrigatório"),
+    password: yup
+      .string()
+      .min(6, "Senha deve conter no minimo 6 digitos")
+      .required("Campo obrigatório"),
+    password_confirmation: yup
+      .string()
+      .oneOf([yup.ref("password")], "Senhas não conferem"),
+  });
+
+  const { register, handleSubmit, errors, setError } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,232 +48,108 @@ const Register = () => {
 
   const classes = useStyles();
 
-  const [Name, setName] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Bio, setBio] = useState("");
-  const [Contact, setContact] = useState("");
-  const [CourseModule, setCourseModule] = useState("");
-  const [Password, setPassword] = useState("");
-  const [ConfirmPassword, setConfirmPassword] = useState("");
-
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleBio = (e) => {
-    setBio(e.target.value);
-  };
-
-  const handleContact = (e) => {
-    setContact(e.target.value);
-  };
-
-  const handleCourseModule = (e) => {
-    setCourseModule(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleConfirmPassword = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
-  const handleNameErrors = () => {
-    if (Name.length === 0) {
-      return "Nome deve ser preenchido";
-    }
-    return null;
-  };
-
-  const handleEmailErrors = () => {
-    let verificaEmail = Email.match(/@{1}/);
-    if (Email.length === 0) {
-      return "E-mail deve ser preenchido";
-    }
-    if (verificaEmail === null) {
-      return "E-mail incorreto!";
-    }
-    return null;
-  };
-
-  const handleBioErrors = () => {
-    if (Bio.length === 0) {
-      return "A biografia deve ser preenchida";
-    }
-    return null;
-  };
-
-  const handleContactErrors = () => {
-    if (Contact.length === 0) {
-      return "Contato deve ser preenchido";
-    }
-    return null;
-  };
-
-  const handleCourseModuleErrors = () => {
-    if (CourseModule.length === 0) {
-      return "O módulo do curso deve ser preenchido";
-    }
-    return null;
-  };
-
-  const handlePasswordErrors = () => {
-    if (Password.length === 0) {
-      return "";
-    }
-    if (Password.length < 6) {
-      return "A senha deve ter mais de 6 caracteres!";
-    }
-    return null;
-  };
-
-  const handleConfirmarSenhaErrors = () => {
-    if (ConfirmPassword.length === 0) {
-      return "";
-    }
-    if (ConfirmPassword !== Password) {
-      return "Senha está diferente deste campo de confirmação.";
-    }
-
-    return null;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const userData = {
-      email: Email,
-      password: Password,
-      name: Name,
-      bio: Bio,
-      contact: Contact,
-      course_module: CourseModule,
-    };
-
-    console.log(handleNameErrors());
-    if (
-      handleNameErrors() === null &&
-      handleEmailErrors() === null &&
-      handleBioErrors() === null &&
-      handleContactErrors() === null &&
-      handleCourseModuleErrors() === null &&
-      handlePasswordErrors() === null &&
-      handleConfirmarSenhaErrors() === null
-    ) {
-      dispatch(registerUserDataThunk(userData));
-    }
+  const handleForm = (data) => {
+    console.log(data);
+    dispatch(registerUserDataThunk(data));
   };
 
   return (
-    <form onSubmit={handleSubmit} className={classes.root}>
+    <form onSubmit={handleSubmit(handleForm)} className={classes.root}>
       <h1 className="labelCadastro">Cadastro de usuário</h1>
 
-      <TextField
-        required
-        id="outlined-search"
-        label="Nome"
-        type="search"
-        variant="outlined"
-        name="email"
-        onChange={handleName}
-      />
-      <p style={{ color: "red" }}>
-        {handleNameErrors() != null && handleNameErrors()}
-      </p>
+      <input ref={register} name="name" />
+      <input ref={register} name="email" />
+      <input ref={register} name="bio" />
+      <input ref={register} name="contact" />
 
-      <TextField
-        required
+      <input ref={register} name="password" />
+      <input ref={register} name="password_confirmation" />
+      <select name="course_module">
+        <option value="">Selecione o Módulo</option>
+        <option value="primeira módulo (introdução ao FrontEnd)">
+          Primeiro módulo (introdução ao FrontEnd)
+        </option>
+        <option value="Segundo módulo (FrontEnd Avançado)">
+          Segundo módulo (FrontEnd Avançado)
+        </option>
+        <option value="Terceiro módulo (introdução ao BackEnd)">
+          Terceiro módulo (introdução ao BackEnd)
+        </option>
+        <option value="Quarto módulo (BackEnd Avançado)">
+          Quarto módulo (BackEnd Avançado)
+        </option>
+      </select>
+
+      {/* <TextField
+        ref={register}
         id="outlined-search"
         label="E-mail"
         type="search"
         variant="outlined"
         name="email"
-        onChange={handleEmail}
-      />
-      <p style={{ color: "red" }}>
-        {handleEmailErrors() != null && handleEmailErrors()}
-      </p>
+      /> */}
 
-      <TextField
+      {/* <TextField
         required
+        ref={register}
         id="outlined-search"
         label="Biografia"
         type="search"
         variant="outlined"
-        name="email"
-        onChange={handleBio}
-      />
-      <p style={{ color: "red" }}>
-        {handleBioErrors() != null && handleBioErrors()}
-      </p>
+        name="bio"
+      /> */}
 
-      <TextField
+      {/* <TextField
         required
+        ref={register}
         id="outlined-search"
         label="Contato"
         type="search"
         variant="outlined"
         name="contact"
-        onChange={handleContact}
-      />
-      <p style={{ color: "red" }}>
-        {handleContactErrors() != null && handleContactErrors()}
-      </p>
+      /> */}
 
-      <TextField
+      {/* <TextField
         required
+        ref={register}
         id="outlined-search"
         label="Módulo do curso"
         type="search"
         variant="outlined"
-        name="contact"
-        onChange={handleCourseModule}
-      />
-      <p style={{ color: "red" }}>
-        {handleCourseModuleErrors() != null && handleCourseModuleErrors()}
-      </p>
+        name="course_module"
+      /> */}
 
-      <TextField
+      {/* <TextField
         required
+        ref={register}
         id="outlined-password-input"
         label="Senha"
         type="password"
         autoComplete="current-password"
         variant="outlined"
-        name="senha"
-        onChange={handlePassword}
-      />
-      <p style={{ color: "red" }}>
-        {handlePasswordErrors() != null && handlePasswordErrors()}
-      </p>
+        name="password"
+      /> */}
 
-      <TextField
+      {/* <TextField
         required
+        ref={register}
         id="outlined-password-input"
         label="Confirmar Senha"
         type="password"
         autoComplete="current-password"
         variant="outlined"
-        name="confirmarSenha"
-        onChange={handleConfirmPassword}
-      />
-      <p style={{ color: "red" }}>
-        {handleConfirmarSenhaErrors() != null && handleConfirmarSenhaErrors()}
-      </p>
+        name="password_confirmation"
+      /> */}
+
       <Button
-        onClick={handleSubmit}
+        type="submit"
         className="LoginButton"
         variant="contained"
         color="primary"
       >
         Cadastrar
       </Button>
+      {/* <button type="submit">Cadastrar</button> */}
     </form>
   );
 };
