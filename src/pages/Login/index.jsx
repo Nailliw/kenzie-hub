@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserThunk } from "../../store/modules/usersData/thunk";
+import { useEffect } from "react";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,17 @@ const Login = () => {
 
   const handleForm = (data) => {
     dispatch(loginUserThunk(data));
-    console.log(userId.loggedUser?.user.id);
-    history.push(`/users/${userId.loggedUser?.user.id}`);
+    // console.log(userId.loggedUser?.user.id);
+    // history.push(`/users/${userId.loggedUser?.user.id}`);
   };
+
+  useEffect(() => {
+    // console.log(userId.loggedUser?.user.id);
+    if (userId.loggedUser?.user.id) {
+      history.push(`/users/profile`);
+      // console.log(userId.loggedUser?.user.id);
+    }
+  }, [userId]);
 
   return (
     <>
