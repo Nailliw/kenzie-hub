@@ -9,7 +9,7 @@ import {
   ListItemText,
   Avatar,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -79,8 +79,8 @@ const NavBarDesktop = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  return token === 'as' ? (
+  useEffect(() => {}, [token]);
+  return token === '' ? (
     <Box bgcolor="#3F51B5">
       <Grid container direction="row" justify="flex-end" alignItems="center">
         <Link className="link-content" to="/">
