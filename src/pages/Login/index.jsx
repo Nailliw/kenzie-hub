@@ -29,7 +29,7 @@ const Login = () => {
   useEffect(() => {
     // console.log(userId.loggedUser?.user.id);
     if (userId.loggedUser?.user.id) {
-      history.push(`/users/${userId.loggedUser?.user.id}`);
+      history.push(`/users/profile`);
       // console.log(userId.loggedUser?.user.id);
     }
   }, [userId]);
