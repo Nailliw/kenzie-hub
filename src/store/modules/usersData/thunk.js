@@ -1,13 +1,14 @@
 import { updateUserData } from "./actions";
 import { api } from "../../../services/api";
-import axios from "axios";
 
 export const registerUserDataThunk = (userData) => {
+  console.log(userData);
   return (dispatch) => {
     api
-      .post(`/users`, userData)
+      .post(`/users`, { ...userData })
       .then((res) => {
         console.log(res);
+        console.log("registrado");
       })
       .catch((error) => {
         console.log(error);
@@ -19,9 +20,7 @@ export const getUsersThunk = () => {
   return (dispatch, getState) => {
     const { UsersDataReducer } = getState();
     const { usersFilters } = UsersDataReducer;
-    const { perPage } = usersFilters;
-    const { page } = usersFilters;
-    const { tech } = usersFilters;
+    const { perPage, page, tech } = usersFilters;
 
     window.localStorage.setItem("usersFilters", JSON.stringify(usersFilters));
 
@@ -97,13 +96,13 @@ export const selectUserThunk = (userId) => {
 export const loginUserThunk = (userLoginData) => {
   return (dispatch, getState) => {
     const { UsersDataReducer } = getState();
-
     console.log(UsersDataReducer);
 
     api
       .post(`/sessions`, userLoginData)
       .then((res) => {
         console.log(res);
+
         const newState = {
           ...UsersDataReducer,
           loggedUser: {
