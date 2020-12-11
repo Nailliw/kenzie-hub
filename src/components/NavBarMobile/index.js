@@ -133,10 +133,10 @@ const NavBarMobile = () => {
                 <Link to="/users/">Users</Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link to={`/users/:${user_id}`}>Profile</Link>
+                <Link to={`/users/profile`}>Profile</Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link to={`/users/:${user_id}/edit`}>Edit Profile</Link>
+                <Link to={`/users/profile/edit`}>Edit Profile</Link>
               </MenuItem>
             </Menu>
           </div>

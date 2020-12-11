@@ -142,12 +142,12 @@ const NavBarDesktop = () => {
           onClose={handleClose}
         >
           <StyledMenuItem>
-            <Link to={`/users/:${user_id}`}>
+            <Link to={`/users/profile`}>
               <ListItemText primary="Profile" />
             </Link>
           </StyledMenuItem>
           <StyledMenuItem>
-            <Link to={`/users/:${user_id}/edit`}>
+            <Link to={`/users/profile/edit`}>
               <ListItemText primary="Edit Profile" />
             </Link>
           </StyledMenuItem>
