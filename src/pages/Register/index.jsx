@@ -87,6 +87,8 @@ const Register = () => {
         type="search"
         variant="outlined"
         name="email"
+        error={!!errors.email?.message}
+        helperText="teste"
       /> */}
 
       {/* <TextField
