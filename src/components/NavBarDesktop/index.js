@@ -1,4 +1,8 @@
-import './styles.css';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import "./styles.css";
 import {
   Box,
   Button,
@@ -8,27 +12,25 @@ import {
   MenuItem,
   ListItemText,
   Avatar,
-} from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+} from "@material-ui/core";
+
+import { withStyles } from "@material-ui/core/styles";
 
 const StyledMenu = withStyles({
   paper: {
-    border: '1px solid #d3d4d5',
+    border: "1px solid #d3d4d5",
   },
 })((props) => (
   <Menu
     elevation={0}
     getContentAnchorEl={null}
     anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
+      vertical: "bottom",
+      horizontal: "center",
     }}
     transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
+      vertical: "top",
+      horizontal: "center",
     }}
     {...props}
   />
@@ -36,9 +38,9 @@ const StyledMenu = withStyles({
 
 const StyledMenuItem = withStyles((theme) => ({
   root: {
-    '&:focus': {
+    "&:focus": {
       backgroundColor: theme.palette.primary.main,
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
         color: theme.palette.common.white,
       },
     },
@@ -81,7 +83,7 @@ const NavBarDesktop = () => {
     setAnchorEl(null);
   };
   useEffect(() => {}, [token]);
-  return token === '' ? (
+  return token === "" ? (
     <Box bgcolor="#3F51B5">
       <Grid container direction="row" justify="flex-end" alignItems="center">
         <Link className="link-content" to="/">
@@ -122,7 +124,7 @@ const NavBarDesktop = () => {
           </Paper>
         </Link>
         <div className="btn-style">
-          {' '}
+          {" "}
           <Button
             id="btn-logged"
             aria-controls="customized-menu"

@@ -1,3 +1,7 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import {
   Button,
   Avatar,
@@ -7,13 +11,11 @@ import {
   Typography,
   AppBar,
   Toolbar,
-} from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+} from "@material-ui/core";
+
+import MenuIcon from "@material-ui/icons/Menu";
+import IconButton from "@material-ui/core/IconButton";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,7 +57,7 @@ const NavBarMobile = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  return token === '' ? (
+  return token === "" ? (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
