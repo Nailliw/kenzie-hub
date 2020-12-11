@@ -93,16 +93,13 @@ export const selectUserThunk = (userId) => {
   };
 };
 
-export const loginUserThunk = (userLoginData) => {
+export const loginUserThunk = (userLoginData, setInvalid) => {
   return (dispatch, getState) => {
     const { UsersDataReducer } = getState();
-    console.log(UsersDataReducer);
-
     api
       .post(`/sessions`, userLoginData)
       .then((res) => {
-        console.log(res);
-
+        setInvalid("");
         const newState = {
           ...UsersDataReducer,
           loggedUser: {
@@ -113,16 +110,12 @@ export const loginUserThunk = (userLoginData) => {
           },
         };
 
-        console.log(newState);
-
         const { loggedUser } = newState;
         window.localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
 
         dispatch(updateUserData(newState));
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => setInvalid(error.response.data.message));
   };
 };
 
