@@ -1,6 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useHistory } from "react-router-dom";
@@ -38,6 +43,14 @@ const Register = () => {
   });
 
   const useStyles = makeStyles((theme) => ({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 200,
+      maxWidth: 200,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
     root: {
       "& .MuiTextField-root": {
         margin: theme.spacing(0.3),
@@ -55,7 +68,7 @@ const Register = () => {
 
   return (
     <form onSubmit={handleSubmit(handleForm)} className={classes.root}>
-      <h1 className="labelCadastro">User register</h1>
+      {/* <h1 className="labelCadastro">User register</h1> */}
 
       {/* <input ref={register} name="name" />
       <input ref={register} name="email" />
@@ -130,9 +143,22 @@ const Register = () => {
         error={!!errors.password_confirmation}
         helperText={errors.password_confirmation?.message}
       />
+      {/* <FormControl className={classes.formControl}>
+        <InputLabel id="select-module">Select module</InputLabel> */}
 
-      <select ref={register} name="course_module">
-        <option value="">Selecione o Módulo</option>
+      <select
+        ref={register}
+        name="course_module"
+        // inputRef={register}
+        // labelId="select-module"
+        // margin="dense"
+        // size="small"
+        // variant="outlined"
+        // name="course_module"
+        // error={!!errors.course_module}
+        // helperText={errors.course_module?.message}
+      >
+        <option value="">------</option>
         <option value="primeira módulo (introdução ao FrontEnd)">
           Primeiro módulo (introdução ao FrontEnd)
         </option>
@@ -146,8 +172,9 @@ const Register = () => {
           Quarto módulo (BackEnd Avançado)
         </option>
       </select>
+      {/* <FormHelperText>{errors.course_module?.message}</FormHelperText>
+      </FormControl> */}
       <p>{errors.course_module?.message}</p>
-
       <Button
         type="submit"
         className="LoginButton"
