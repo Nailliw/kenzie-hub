@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserThunk } from "../../store/modules/usersData/thunk";
 import { useEffect } from "react";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -12,8 +14,8 @@ const Login = () => {
   const history = useHistory();
 
   const schema = yup.object().shape({
-    email: yup.string().email().required("Campo obrigatorio"),
-    password: yup.string().required("Campo obrigatorio"),
+    email: yup.string().email().required("Required field"),
+    password: yup.string().required("Required field"),
   });
 
   const { register, handleSubmit, errors, setError } = useForm({
@@ -21,33 +23,54 @@ const Login = () => {
   });
 
   const handleForm = (data) => {
-    dispatch(loginUserThunk(data));
-    // console.log(userId.loggedUser?.user.id);
-    // history.push(`/users/${userId.loggedUser?.user.id}`);
+    dispatch(loginUserThunk(data, setError));
   };
 
   useEffect(() => {
-    // console.log(userId.loggedUser?.user.id);
     if (userId.loggedUser?.user.id) {
       history.push(`/users/profile`);
-      // console.log(userId.loggedUser?.user.id);
+    } else {
     }
   }, [userId]);
 
   return (
     <>
-      <div>Login</div>
       <form onSubmit={handleSubmit(handleForm)}>
-        <input placeholder="Insert Email" name="email" ref={register}></input>
+        <h1>Login</h1>
+        <TextField
+          variant="outlined"
+          label="Email"
+          name="email"
+          margin="dense"
+          size="small"
+          type="string"
+          inputRef={register}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+        ></TextField>
 
-        <input
-          placeholder="Insert Password"
+        <TextField
+          variant="outlined"
+          label="Password"
           name="password"
+          inputRef={register}
           type="password"
-          ref={register}
-        ></input>
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          margin="dense"
+          size="small"
+        ></TextField>
 
-        <button type="submit">Logar</button>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          margin="normal"
+        >
+          Logar
+        </Button>
+
+        <p style={{ color: "red" }}>{errors.userLogin?.message}</p>
       </form>
     </>
   );
