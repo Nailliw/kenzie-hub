@@ -9,8 +9,8 @@ import Routes from "./Routes";
 const App = () => {
   return (
     <>
-      <CssBaseline />
       <Container maxWidth="xl">
+        <CssBaseline />
         <Typography
           component="div"
           style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
