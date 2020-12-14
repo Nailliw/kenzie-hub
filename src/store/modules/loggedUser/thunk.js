@@ -45,30 +45,40 @@ export const loginUserThunk = (userLoginData) => {
   };
 };
 
+export const logoutUserThunk = () => {
+  return (dispatch, getState) => {
+    const newState = {};
+
+    window.localStorage.setItem("loggedUser", JSON.stringify(newState));
+
+    dispatch(updateLoggedUser(newState));
+  };
+};
+
 export const updateLoggedUserThunk = () => {
   return (dispatch, getState) => {
     let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
 
-    const { id } = loggedUser.user;
+    if (loggedUser) {
+      const { id } = loggedUser.user;
+      console.log(loggedUser);
+      api
+        .get(`/users/${id}`)
+        .then((res) => {
+          console.log(res);
 
-    api
-      .get(`/users/${id}`)
-      .then((res) => {
-        console.log(res);
+          const newState = { ...loggedUser, res };
 
-        const newState = res.data;
+          console.log(newState);
 
-        console.log(newState);
+          window.localStorage.setItem("loggedUser", JSON.stringify(newState));
 
-        const { loggedUser } = newState;
-
-        window.localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
-
-        dispatch(updateLoggedUser(newState));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+          dispatch(updateLoggedUser(newState));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 };
 
@@ -208,7 +218,7 @@ export const deleteLoggedUser = (idUser) => {
   };
 };
 
-export const uploadUserAvatar = (avatarData) => {
+export const uploadUserAvatarThunk = (avatarData) => {
   return (dispatch, getState) => {
     let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
 
