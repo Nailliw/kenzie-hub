@@ -41,7 +41,7 @@ const Profile = () => {
   const params = useParams();
   const [id, setId] = useState(params.userID);
   const [token, setToken] = useState(
-    JSON.parse(window.localStorage.getItem("loggedUser"))
+    JSON.parse(window.localStorage.getItem("loggedUser")) || []
   );
   const [data, setData] = useState();
 
