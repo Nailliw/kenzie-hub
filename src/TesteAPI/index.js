@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { IsLogged } from "../components/IsLogged";
 import {
   loginUserThunk,
   addUserTechThunk,
@@ -11,7 +12,8 @@ import {
   deleteWorkThunk,
   registerUserThunk,
   deleteLoggedUser,
-  uploadUserAvatar,
+  uploadUserAvatarThunk,
+  updateLoggedUserThunk,
 } from "../store/modules/loggedUser/thunk";
 import { selectUserThunk } from "../store/modules/selectedUser/thunk";
 import { setUsersFiltersThunk } from "../store/modules/usersFilters/thunk";
@@ -21,6 +23,7 @@ const TesteAPI = () => {
   const [data, setData] = useState(null);
   const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.LoggedUserReducer);
+  let usuarios = [];
 
   useEffect(() => {
     const userLogin = {
@@ -37,12 +40,13 @@ const TesteAPI = () => {
   };
 
   const handleButton = () => {
+    console.log(IsLogged(dispatch));
     const registerUser = {
       email: "felipesmTeste@email.com",
       password: "123456",
       name: "Felipe S. Molina",
       bio: "Lorem ipsum dolor emet",
-      contact: "linkedin/in/johndoe",
+      contact: "linkedin/in/felipe-sobrinho-molina-81020149",
       course_module: "Segundo Módulo (Frontend avançado)",
     };
 
@@ -71,7 +75,7 @@ const TesteAPI = () => {
       description: "Nova descrição.",
     };
 
-    const idWork = "5302250e-9149-46c3-bfa1-1e693716173b";
+    const idWork = "8f5e2dfe-1785-4a86-9aa5-8f925db28d01";
 
     const userTech = {
       title: "C++",
@@ -82,16 +86,17 @@ const TesteAPI = () => {
       status: "Avançado",
     };
 
-    const idTech = "d9509a34-ba13-41f6-8326-d97699fe98c8";
+    const idTech = "4b57c678-35a6-4379-86ab-f34bfa3bf794";
 
-    const idUser = JSON.parse(window.localStorage.getItem("loggedUser")).user
-      .id;
+    //const idUser = JSON.parse(window.localStorage.getItem("loggedUser")).user.id;
 
     //dispatch(getUsersThunk());
     //dispatch(setUsersFiltersThunk(usersFilters));
 
+    //dispatch(updateLoggedUserThunk())
+
     //dispatch(registerUserThunk(registerUser));
-    dispatch(uploadUserAvatar(data));
+    //dispatch(uploadUserAvatarThunk(data));
 
     //dispatch(addUserTechThunk(userTech));
     //dispatch(addUserWorkThunk(userWork));
@@ -103,7 +108,7 @@ const TesteAPI = () => {
     //dispatch(deleteTechThunk(idTech));
     //dispatch(deleteWorkThunk(idWork));
     //dispatch(deleteLoggedUser(idUser));
-    console.log(loggedUser);
+    //console.log(loggedUser);
   };
   return (
     <>
