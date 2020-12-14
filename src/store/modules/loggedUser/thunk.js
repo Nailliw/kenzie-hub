@@ -45,16 +45,6 @@ export const loginUserThunk = (userLoginData) => {
   };
 };
 
-export const logoutUserThunk = () => {
-  return (dispatch, getState) => {
-    const newState = {};
-
-    window.localStorage.setItem("loggedUser", JSON.stringify(newState));
-
-    dispatch(updateLoggedUser(newState));
-  };
-};
-
 export const updateLoggedUserThunk = () => {
   return (dispatch, getState) => {
     let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
