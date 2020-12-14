@@ -1,8 +1,7 @@
 import { updateUserData } from "./actions";
 import { api } from "../../../services/api";
 
-export const registerUserDataThunk = (userData) => {
-  console.log(userData);
+export const registerUserDataThunk = (userData, setError) => {
   return (dispatch) => {
     api
       .post(`/users`, { ...userData })
@@ -10,9 +9,11 @@ export const registerUserDataThunk = (userData) => {
         console.log(res);
         console.log("registrado");
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) =>
+        setError("registerError", {
+          message: error.response.data.message,
+        })
+      );
   };
 };
 
@@ -93,13 +94,12 @@ export const selectUserThunk = (userId) => {
   };
 };
 
-export const loginUserThunk = (userLoginData, setInvalid) => {
+export const loginUserThunk = (userLoginData, setError) => {
   return (dispatch, getState) => {
     const { UsersDataReducer } = getState();
     api
       .post(`/sessions`, userLoginData)
       .then((res) => {
-        setInvalid("");
         const newState = {
           ...UsersDataReducer,
           loggedUser: {
@@ -115,7 +115,10 @@ export const loginUserThunk = (userLoginData, setInvalid) => {
 
         dispatch(updateUserData(newState));
       })
-      .catch((error) => setInvalid(error.response.data.message));
+      .catch((error) =>
+        setError("userLogin", { message: error.response.data.message })
+      );
+    // .catch((error) => setInvalid(error.response.data.message));
   };
 };
 
