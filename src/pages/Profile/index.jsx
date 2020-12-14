@@ -68,6 +68,7 @@ const Profile = () => {
   }, []);
 
   console.log(data);
+  console.log(token.token);
 
   return (
     <>
@@ -125,8 +126,8 @@ const Profile = () => {
               <div className={classes.paperRoot}>
                 {data.techs.map((tech, index) => (
                   <Paper elevation={3} key={index} className={classes.paper}>
-                    skill: {tech.title}
-                    nivel: {tech.status}
+                    <p>skill: {tech.title}</p>
+                    <p>nivel: {tech.status}</p>
                   </Paper>
                 ))}
               </div>
