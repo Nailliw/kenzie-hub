@@ -2,11 +2,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import React, { useState, useEffect } from "react";
+
 import "./style.css";
 import { useHistory } from "react-router-dom";
 import { registerUserDataThunk } from "../../store/modules/usersData/thunk";
@@ -62,20 +62,12 @@ const Register = () => {
   const classes = useStyles();
 
   const handleForm = (data) => {
-    console.log(data);
     dispatch(registerUserDataThunk(data, setError));
   };
 
   return (
     <form onSubmit={handleSubmit(handleForm)} className={classes.root}>
-      {/* <h1 className="labelCadastro">User register</h1> */}
-
-      {/* <input ref={register} name="name" />
-      <input ref={register} name="email" />
-      <input ref={register} name="bio" />
-      <input ref={register} name="contact" />
-      <input ref={register} name="password" />
-      <input ref={register} name="password_confirmation" /> */}
+      <h1 className="labelCadastro">User register</h1>
 
       <TextField
         variant="outlined"
@@ -140,41 +132,50 @@ const Register = () => {
         margin="dense"
         type="password"
         inputRef={register}
-        error={!!errors.password_confirmation}
+        error={!!errors.password}
         helperText={errors.password_confirmation?.message}
       />
-      {/* <FormControl className={classes.formControl}>
-        <InputLabel id="select-module">Select module</InputLabel> */}
+      <FormControl className={classes.formControl}>
+        <InputLabel
+          variant="outlined"
+          margin="dense"
+          size="small"
+          error={!!errors.course_module}
+          id="select-module"
+        >
+          Select module
+        </InputLabel>
 
-      <select
-        ref={register}
-        name="course_module"
-        // inputRef={register}
-        // labelId="select-module"
-        // margin="dense"
-        // size="small"
-        // variant="outlined"
-        // name="course_module"
-        // error={!!errors.course_module}
-        // helperText={errors.course_module?.message}
-      >
-        <option value="">------</option>
-        <option value="primeira módulo (introdução ao FrontEnd)">
-          Primeiro módulo (introdução ao FrontEnd)
-        </option>
-        <option value="Segundo módulo (FrontEnd Avançado)">
-          Segundo módulo (FrontEnd Avançado)
-        </option>
-        <option value="Terceiro módulo (introdução ao BackEnd)">
-          Terceiro módulo (introdução ao BackEnd)
-        </option>
-        <option value="Quarto módulo (BackEnd Avançado)">
-          Quarto módulo (BackEnd Avançado)
-        </option>
-      </select>
-      {/* <FormHelperText>{errors.course_module?.message}</FormHelperText>
-      </FormControl> */}
-      <p>{errors.course_module?.message}</p>
+        <Select
+          error={!!errors.course_module}
+          native={true}
+          name="course_module"
+          inputRef={register}
+          labelId="select-module"
+          label="select-module"
+          margin="dense"
+          size="small"
+          variant="outlined"
+        >
+          <option value=""></option>
+          <option value="primeira módulo (introdução ao FrontEnd)">
+            Primeiro módulo (introdução ao FrontEnd)
+          </option>
+          <option value="Segundo módulo (FrontEnd Avançado)">
+            Segundo módulo (FrontEnd Avançado)
+          </option>
+          <option value="Terceiro módulo (introdução ao BackEnd)">
+            Terceiro módulo (introdução ao BackEnd)
+          </option>
+          <option value="Quarto módulo (BackEnd Avançado)">
+            Quarto módulo (BackEnd Avançado)
+          </option>
+        </Select>
+        <FormHelperText style={{ color: "red" }}>
+          {errors.course_module?.message}
+        </FormHelperText>
+      </FormControl>
+
       <Button
         type="submit"
         className="LoginButton"

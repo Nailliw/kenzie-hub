@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserThunk } from "../../store/modules/usersData/thunk";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
@@ -41,7 +41,8 @@ const Login = () => {
           variant="outlined"
           label="Email"
           name="email"
-          margin="normal"
+          margin="dense"
+          size="small"
           type="string"
           inputRef={register}
           error={!!errors.email}
@@ -56,7 +57,8 @@ const Login = () => {
           type="password"
           error={!!errors.password}
           helperText={errors.password?.message}
-          margin="normal"
+          margin="dense"
+          size="small"
         ></TextField>
 
         <Button
