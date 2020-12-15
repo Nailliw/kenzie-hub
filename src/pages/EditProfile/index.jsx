@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { Redirect, useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { IsLogged } from "../../components/IsLogged";
-import { useForm } from "react-hook-form";
 import {
   changeProfileThunk,
   changeTechStatusThunk,
@@ -42,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-//
 
 const EditProfile = () => {
   const loggedUser = useSelector((state) => state.LoggedUserReducer);
@@ -57,6 +55,7 @@ const EditProfile = () => {
   const [course_module, setCourse_module] = useState();
   const [contact, setContact] = useState();
   const [email, setEmail] = useState();
+  let toggleRemove = false;
 
   useEffect(() => {
     dispatch(updateLoggedUserThunk());
@@ -75,9 +74,20 @@ const EditProfile = () => {
     }
   }, [loggedUser.token]);
 
+  useEffect(() => {
+    if (data && toggleRemove === true) {
+      console.log(toggleRemove);
+      setTechs(data.techs);
+      setWorks(data.works);
+      toggleRemove = false;
+      console.log(works);
+      history.push("/users/profile/edit");
+    }
+  }, [data]);
+
   return (
     <>
-      {data && (
+      {works && techs && (
         <div style={{ display: "flex" }}>
           <div>
             <Card className={classes.userRoot}>
@@ -182,171 +192,180 @@ const EditProfile = () => {
             <div className="test">
               Hard skills
               <div className={classes.paperRoot}>
-                {techs &&
-                  techs.map((tech, index) => (
-                    <div key={index}>
-                      <TextField
-                        fullWidth
-                        disabled
-                        defaultValue={tech.title}
-                        variant="outlined"
-                        label="Título"
-                        name="title"
-                        margin="dense"
-                        type="string"
-                      />
-                      <TextField
-                        fullWidth
-                        defaultValue={tech.status}
-                        onChange={(evento) => {
-                          setTechs([
-                            ...techs.map((e, i) => {
-                              if (e.id === tech.id) {
-                                return { ...e, status: evento.target.value };
-                              }
-                              return e;
-                            }),
-                          ]);
-                        }}
-                        variant="outlined"
-                        label="Status"
-                        name="status"
-                        margin="dense"
-                        type="string"
-                      />
-                      <Button
-                        onClick={() => {
-                          dispatch(
-                            changeTechStatusThunk(
-                              {
-                                title: techs.filter((e) => {
-                                  return e.id === tech.id;
-                                })[0].title,
-                                status: techs.filter((e) => {
-                                  return e.id === tech.id;
-                                })[0].status,
-                              },
-                              tech.id
-                            )
-                          );
-                        }}
-                      >
-                        Editar
-                      </Button>
-                      <Button
-                        onClick={(e) => {
-                          dispatch(deleteTechThunk(tech.id));
-                          window.location.reload();
-                        }}
-                      >
-                        Remover
-                      </Button>
-                    </div>
-                  ))}
+                {techs.map((tech, index) => (
+                  <div key={index}>
+                    <TextField
+                      fullWidth
+                      disabled
+                      defaultValue={tech.title}
+                      variant="outlined"
+                      label="Título"
+                      name="title"
+                      margin="dense"
+                      type="string"
+                    />
+                    <TextField
+                      fullWidth
+                      defaultValue={tech.status}
+                      onChange={(evento) => {
+                        setTechs([
+                          ...techs.map((e, i) => {
+                            if (e.id === tech.id) {
+                              return { ...e, status: evento.target.value };
+                            }
+                            return e;
+                          }),
+                        ]);
+                      }}
+                      variant="outlined"
+                      label="Status"
+                      name="status"
+                      margin="dense"
+                      type="string"
+                    />
+                    <Button
+                      onClick={() => {
+                        dispatch(
+                          changeTechStatusThunk(
+                            {
+                              title: techs.filter((e) => {
+                                return e.id === tech.id;
+                              })[0].title,
+                              status: techs.filter((e) => {
+                                return e.id === tech.id;
+                              })[0].status,
+                            },
+                            tech.id
+                          )
+                        );
+                      }}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      onClick={(e) => {
+                        dispatch(deleteTechThunk(tech.id));
+                        toggleRemove = true;
+                      }}
+                    >
+                      Remover
+                    </Button>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="test">
               projetos
               <div className={classes.paperRoot}>
-                {works &&
-                  works.map((work, index) => (
-                    <div key={index}>
-                      <TextField
-                        fullWidth
-                        defaultValue={work.title}
-                        onChange={(evento) => {
-                          setWorks([
-                            ...works.map((e, i) => {
-                              if (e.id === work.id) {
-                                return { ...e, title: evento.target.value };
-                              }
-                              return e;
-                            }),
-                          ]);
-                          console.log(works);
-                        }}
-                        variant="outlined"
-                        label="Título"
-                        name="title"
-                        margin="dense"
-                        type="string"
-                      />
-                      <TextField
-                        fullWidth
-                        defaultValue={work.description}
-                        onChange={(evento) => {
-                          setWorks([
-                            ...works.map((e, i) => {
-                              if (e.id === work.id) {
-                                return {
-                                  ...e,
-                                  description: evento.target.value,
-                                };
-                              }
-                              return e;
-                            }),
-                          ]);
-                        }}
-                        variant="outlined"
-                        label="Descrição"
-                        name="description"
-                        margin="dense"
-                        type="string"
-                      />
-                      <TextField
-                        fullWidth
-                        defaultValue={work.deploy_url}
-                        onChange={(evento) => {
-                          setWorks([
-                            ...works.map((e, i) => {
-                              if (e.id === work.id) {
-                                return {
-                                  ...e,
-                                  deploy_url: evento.target.value,
-                                };
-                              }
-                              return e;
-                            }),
-                          ]);
-                        }}
-                        variant="outlined"
-                        label="URL"
-                        name="deploy_url"
-                        margin="dense"
-                        type="string"
-                      />
-                      <Button
-                        onClick={() => {
-                          dispatch(
-                            changeWorkInfoThunk(
-                              {
-                                title: works.filter((e) => {
-                                  return e.id === work.id;
-                                })[0].title,
-                                description: works.filter((e) => {
-                                  return e.id === work.id;
-                                })[0].description,
-                                deploy_url: works.filter((e) => {
-                                  return e.id === work.id;
-                                })[0].deploy_url,
-                              },
-                              work.id
-                            )
-                          );
-                        }}
-                      >
-                        Editar
-                      </Button>
-                      <Button
-                        onClick={(e) => {
-                          dispatch(deleteWorkThunk(work.id));
-                          window.location.reload();
-                        }}
-                      >
-                        Remover
-                      </Button>
-                    </div>
-                  ))}
+                {data.works.map((work, index) => (
+                  <div key={index}>
+                    <TextField
+                      fullWidth
+                      defaultValue={
+                        works.filter((e) => {
+                          return e.id === work.id;
+                        })[0].title
+                      }
+                      onChange={(evento) => {
+                        setWorks([
+                          ...works.map((e, i) => {
+                            if (e.id === work.id) {
+                              return { ...e, title: evento.target.value };
+                            }
+                            return e;
+                          }),
+                        ]);
+                      }}
+                      variant="outlined"
+                      label="Título"
+                      name="title"
+                      margin="dense"
+                      type="string"
+                    />
+                    <TextField
+                      fullWidth
+                      defaultValue={
+                        works.filter((e) => {
+                          return e.id === work.id;
+                        })[0].description
+                      }
+                      onChange={(evento) => {
+                        setWorks([
+                          ...works.map((e, i) => {
+                            if (e.id === work.id) {
+                              return {
+                                ...e,
+                                description: evento.target.value,
+                              };
+                            }
+                            return e;
+                          }),
+                        ]);
+                      }}
+                      variant="outlined"
+                      label="Descrição"
+                      name="description"
+                      margin="dense"
+                      type="string"
+                    />
+                    <TextField
+                      fullWidth
+                      defaultValue={
+                        works.filter((e) => {
+                          return e.id === work.id;
+                        })[0].deploy_url
+                      }
+                      onChange={(evento) => {
+                        setWorks([
+                          ...works.map((e, i) => {
+                            if (e.id === work.id) {
+                              return {
+                                ...e,
+                                deploy_url: evento.target.value,
+                              };
+                            }
+                            return e;
+                          }),
+                        ]);
+                      }}
+                      variant="outlined"
+                      label="URL"
+                      name="deploy_url"
+                      margin="dense"
+                      type="string"
+                    />
+                    <Button
+                      onClick={() => {
+                        dispatch(
+                          changeWorkInfoThunk(
+                            {
+                              title: works.filter((e) => {
+                                return e.id === work.id;
+                              })[0].title,
+                              description: works.filter((e) => {
+                                return e.id === work.id;
+                              })[0].description,
+                              deploy_url: works.filter((e) => {
+                                return e.id === work.id;
+                              })[0].deploy_url,
+                            },
+                            work.id
+                          )
+                        );
+                      }}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      onClick={(e) => {
+                        dispatch(deleteWorkThunk(work.id));
+                        toggleRemove = true;
+                      }}
+                    >
+                      Remover
+                    </Button>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
