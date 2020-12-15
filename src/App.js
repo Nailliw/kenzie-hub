@@ -10,10 +10,13 @@ const App = () => {
 	return (
 		<>
 			<CssBaseline />
-			<Container maxWidth="xl">
+			<Container maxWidth="xl" disableGutters>
 				<Typography
 					component="div"
-					style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
+					style={{
+						backgroundColor: "#525261",
+						height: "100vh",
+					}}
 				>
 					{window.screen.width > 1024 ? <NavBarDesktop /> : <NavBarMobile />}
 					<Routes />
