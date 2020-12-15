@@ -236,6 +236,7 @@ const EditProfile = () => {
                       <Button
                         onClick={(e) => {
                           dispatch(deleteTechThunk(tech.id));
+                          window.location.reload();
                         }}
                       >
                         Remover
@@ -339,6 +340,7 @@ const EditProfile = () => {
                       <Button
                         onClick={(e) => {
                           dispatch(deleteWorkThunk(work.id));
+                          window.location.reload();
                         }}
                       >
                         Remover
