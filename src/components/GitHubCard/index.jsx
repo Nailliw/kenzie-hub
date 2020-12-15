@@ -8,6 +8,8 @@ const GitHubCards = () => {
   const [willianData, setwillianData] = useState([]);
   const [carlosData, setcarlosData] = useState([]);
   const [jefteData, setjefteData] = useState([]);
+  const [felipeData, setfelipeData] = useState([]);
+  const [marcosData, setmarcosData] = useState([]);
 
   const getUser = () => {
     Axios.get(URL_BASE + "Nailliw").then((body) => {
@@ -21,6 +23,12 @@ const GitHubCards = () => {
     Axios.get(URL_BASE + "jeftekeller").then((body) => {
       setjefteData(body.data);
     });
+    Axios.get(URL_BASE + "felipe16sm").then((body) => {
+      setfelipeData(body.data);
+    });
+    Axios.get(URL_BASE + "marcosmorato").then((body) => {
+      setmarcosData(body.data);
+    });
   };
 
   useEffect(() => {
@@ -33,6 +41,8 @@ const GitHubCards = () => {
         jefteData={jefteData}
         willianData={willianData}
         carlosData={carlosData}
+        felipeData={felipeData}
+        marcosData={marcosData}
       />
     </>
   );
