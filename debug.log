@@ -1,0 +1,7 @@
+[1209/154834.073:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema nï¿½o pode encontrar o caminho especificado. (0x3)
+[1210/013735.876:ERROR:process_reader_win.cc(123)] NtOpenThread: {Acesso Negado} Um processo solicitou acesso a um objeto, mas o direito de acesso nï¿½o lhe foi concedido. (0xc0000022)
+[1210/013735.877:ERROR:exception_snapshot_win.cc(99)] thread ID 5528 not found in process
+[1210/093601.767:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema nï¿½o pode encontrar o caminho especificado. (0x3)
+[1211/090547.273:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema nï¿½o pode encontrar o caminho especificado. (0x3)
+[1211/152541.661:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
+[1214/064359.563:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
