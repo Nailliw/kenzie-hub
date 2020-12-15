@@ -10,7 +10,8 @@ import {
   deleteWorkThunk,
   updateLoggedUserThunk,
 } from "../../store/modules/loggedUser/thunk";
-import UserTechs from "../../components/UserTechs/UserTechs";
+import UserTechs from "../../components/UserTechs";
+import UserWorks from "../../components/UserWorks";
 
 //material ui
 import React from "react";
@@ -188,6 +189,10 @@ const EditProfile = () => {
                 </Button>
               </CardActions>
             </Card>
+          </div>
+          <div>
+            <UserTechs />
+            <UserWorks />
           </div>
           <div>
             <div className="test">
@@ -372,7 +377,6 @@ const EditProfile = () => {
           </div>
         </div>
       )}
-      <UserTechs></UserTechs>
     </>
   );
 };
