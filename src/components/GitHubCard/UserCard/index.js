@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   Avatar,
   Card,
-  CardContent,
   CardHeader,
   CardActions,
   IconButton,
@@ -11,16 +10,17 @@ import {
 } from "@material-ui/core";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
-    maxWidth: 345,
+    width: 345,
+    height: 150,
     margin: 10,
   },
 }));
 const UserCard = ({ list }) => {
   const classes = useStyles();
   return (
-    <>
+    <div>
       <Card className={classes.root}>
         <CardHeader
           avatar={<Avatar src={list.avatar_url}></Avatar>}
@@ -40,7 +40,7 @@ const UserCard = ({ list }) => {
           </IconButton>
         </CardActions>
       </Card>
-    </>
+    </div>
   );
 };
 

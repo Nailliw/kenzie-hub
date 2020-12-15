@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { IsLogged } from "../../IsLogged";
+import { logoutUserThunk } from "../../../store/modules/loggedUser/thunk";
 import "./styles.css";
 import HomeIcon from "@material-ui/icons/Home";
 import {
@@ -19,15 +20,9 @@ const NavBarDesktop = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
   let history = useHistory();
-  //selectors
+  const dispatch = useDispatch();
 
-  const token = useSelector(
-    ({
-      UsersDataReducer: {
-        loggedUser: { token },
-      },
-    }) => token,
-  );
+  //selectors
   const user_avatar = useSelector(
     ({
       UsersDataReducer: {
@@ -45,12 +40,13 @@ const NavBarDesktop = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handlelogout = () => {
-    window.localStorage.removeItem("loggedUser");
+    dispatch(logoutUserThunk());
     history.push("/");
   };
 
-  return token === "" ? (
+  return !IsLogged(dispatch) ? (
     <header>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
@@ -62,7 +58,7 @@ const NavBarDesktop = () => {
           <Paper className={classes.papers} variant="outlined" square>
             <Button className={classes.papersbtn}>
               <Link style={{ textDecoration: "none" }} to="/users">
-                USERS
+                DEVS
               </Link>
             </Button>
           </Paper>
@@ -93,7 +89,7 @@ const NavBarDesktop = () => {
           <Paper className={classes.papers} variant="outlined" square>
             <Button className={classes.papersbtn}>
               <Link style={{ textDecoration: "none" }} to="/users">
-                USERS
+                DEVS
               </Link>
             </Button>
           </Paper>
