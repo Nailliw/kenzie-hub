@@ -93,7 +93,7 @@ const TesteAPI = () => {
     //dispatch(getUsersThunk());
     //dispatch(setUsersFiltersThunk(usersFilters));
 
-    //dispatch(updateLoggedUserThunk())
+    //dispatch(updateLoggedUserThunk());
 
     //dispatch(registerUserThunk(registerUser));
     //dispatch(uploadUserAvatarThunk(data));

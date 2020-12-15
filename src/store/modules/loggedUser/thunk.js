@@ -61,13 +61,10 @@ export const updateLoggedUserThunk = () => {
 
     if (loggedUser) {
       const { id } = loggedUser.user;
-      console.log(loggedUser);
       api
         .get(`/users/${id}`)
         .then((res) => {
-          console.log(res);
-
-          const newState = { ...loggedUser, res };
+          const newState = { ...loggedUser, user: res.data };
 
           console.log(newState);
 
@@ -121,7 +118,7 @@ export const changeProfileThunk = (updatedProfile) => {
     let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
 
     let validation = loggedUser.headersToken;
-
+    console.log(updatedProfile);
     api
       .put(`/profile`, updatedProfile, validation)
       .then((res) => {
@@ -142,6 +139,7 @@ export const changeTechStatusThunk = (techStatus, idTech) => {
     api
       .put(`/users/techs/${idTech}`, techStatus, validation)
       .then((res) => {
+        console.log(res);
         dispatch(updateLoggedUserThunk());
       })
       .catch((error) => {
