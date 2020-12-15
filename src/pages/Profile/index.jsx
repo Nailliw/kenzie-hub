@@ -1,9 +1,17 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { Redirect, useParams, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-import RemoveTech from "../../components/RemoveTech/index";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { IsLogged } from "../../components/IsLogged";
+import {
+  changeProfileThunk,
+  changeTechStatusThunk,
+  changeWorkInfoThunk,
+  deleteTechThunk,
+  deleteWorkThunk,
+  updateLoggedUserThunk,
+} from "../../store/modules/loggedUser/thunk";
+import UserTechs from "../../components/UserTechs";
+import UserWorks from "../../components/UserWorks";
 
 //material ui
 import React from "react";
@@ -13,15 +21,14 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
   userRoot: {
-    width: "25vw",
+    width: "30vw",
   },
   media: {
-    height: 340,
+    height: 235,
   },
   editProfile: {
     margin: "auto",
@@ -36,42 +43,32 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-//
 
 const Profile = () => {
-  const classes = useStyles();
-  const params = useParams();
+  const loggedUser = useSelector((state) => state.LoggedUserReducer);
+  const dispatch = useDispatch();
   const history = useHistory();
-  const [id, setId] = useState(params.userID);
-  const [token, setToken] = useState(
-    JSON.parse(window.localStorage.getItem("loggedUser")) || []
-  );
-  const [data, setData] = useState();
+  const data = loggedUser.user;
+  const classes = useStyles();
+  const [name, setName] = useState();
+  const [bio, setBio] = useState();
+  const [course_module, setCourse_module] = useState();
+  const [contact, setContact] = useState();
+  const [email, setEmail] = useState();
+  let toggleRemove = false;
 
   useEffect(() => {
-    if (id === "profile") {
-      axios
-        .get(`https://kenziehub.me/profile`, {
-          headers: { Authorization: "Bearer " + token.token },
-        })
-        .then((res) => {
-          setData(res.data);
-        })
-        .catch((err) => console.log(err));
-      console.log("perfil");
-    } else {
-      axios
-        .get(`https://kenziehub.me/users/${id}`)
-        .then((res) => {
-          setData(res.data);
-        })
-        .catch((err) => console.log(err));
-      console.log("nao perfil");
+    dispatch(updateLoggedUserThunk());
+    if (!IsLogged(dispatch)) {
+      history.push("/login");
     }
   }, []);
 
-  console.log(data);
-  console.log(token.token);
+  useEffect(() => {
+    if (!IsLogged(dispatch)) {
+      history.push("/login");
+    }
+  }, [loggedUser.token]);
 
   return (
     <>
@@ -93,75 +90,141 @@ const Profile = () => {
                 />
               )}
               <CardContent>
-                <Typography
-                  gutterBottom
-                  align="center"
-                  variant="h4"
-                  component="h1"
-                >
-                  {data.name}
-                </Typography>
-                <Typography component="p">{data.bio}</Typography>
-                <Typography component="p">
-                  Módulo do Curso: {data.course_module}
-                </Typography>
-                <Typography component="p">Contato: {data.contact}</Typography>
-                <Typography component="p">E-mail: {data.email}</Typography>
+                <TextField
+                  fullWidth
+                  disabled
+                  defaultValue={data.name}
+                  variant="outlined"
+                  label="Name"
+                  name="name"
+                  margin="dense"
+                  type="string"
+                />
+                <TextField
+                  fullWidth
+                  disabled
+                  defaultValue={data.bio}
+                  variant="outlined"
+                  label="Bio"
+                  name="bio"
+                  margin="dense"
+                  type="string"
+                />
+                <TextField
+                  fullWidth
+                  disabled
+                  defaultValue={data.course_module}
+                  variant="outlined"
+                  label="Módulo do Curso"
+                  name="course_module"
+                  margin="dense"
+                  type="string"
+                />
+                <TextField
+                  fullWidth
+                  disabled
+                  defaultValue={data.contact}
+                  onChange={(evento) => {
+                    setContact(evento.target.value);
+                  }}
+                  variant="outlined"
+                  label="Contato"
+                  name="contact"
+                  margin="dense"
+                  type="string"
+                />
+                <TextField
+                  fullWidth
+                  disabled
+                  defaultValue={data.email}
+                  variant="outlined"
+                  label="E-mail"
+                  name="email"
+                  margin="dense"
+                  type="string"
+                />
               </CardContent>
-              {id === "profile" && (
-                <CardActions>
-                  <Button
-                    className={classes.editProfile}
-                    color="primary"
-                    onClick={() => {
-                      history.push("/users/profile/edit");
-                    }}
-                  >
-                    Editar dados do perfil
-                  </Button>
-                </CardActions>
-              )}
+
+              <CardActions>
+                <Button
+                  className={classes.editProfile}
+                  color="primary"
+                  onClick={() => {
+                    history.push("/users/profile/edit");
+                  }}
+                >
+                  Editar Perfil
+                </Button>
+              </CardActions>
             </Card>
           </div>
           <div>
             <div className="test">
-              hard skills
+              Hard skills
               <div className={classes.paperRoot}>
                 {data.techs.map((tech, index) => (
-                  <Paper elevation={3} key={index} className={classes.paper}>
-                    <p>skill: {tech.title}</p>
-                    <p>nivel: {tech.status}</p>
-                    <button
-                      onClick={() => {
-                        console.log(tech.id);
-                      }}
-                    >
-                      editar
-                    </button>
-                    <RemoveTech id={tech.id}></RemoveTech>
-                  </Paper>
+                  <div key={index}>
+                    <TextField
+                      fullWidth
+                      disabled
+                      defaultValue={tech.title}
+                      variant="outlined"
+                      label="Título"
+                      name="title"
+                      margin="dense"
+                      type="string"
+                    />
+                    <TextField
+                      fullWidth
+                      defaultValue={tech.status}
+                      variant="outlined"
+                      label="Status"
+                      name="status"
+                      margin="dense"
+                      type="string"
+                    />
+                  </div>
                 ))}
-                <Paper elevation={3} className={classes.paper}>
-                  <button
-                    onClick={() => {
-                      history.push("/users/profile/edit");
-                    }}
-                  >
-                    Criar tech
-                  </button>
-                </Paper>
               </div>
             </div>
             <div className="test">
               projetos
-              {data.works.map((work, index) => (
-                <div key={index}>
-                  <h4>nome: {work.title}</h4>
-                  <p>descrição: {work.description}</p>
-
-                  <a href={work.deploy_url}>link</a>
-                </div>
-              ))}
+              <div className={classes.paperRoot}>
+                {data.works.map((work, index) => (
+                  <div key={index}>
+                    <TextField
+                      fullWidth
+                      disabled
+                      defaultValue={work.title}
+                      variant="outlined"
+                      label="Título"
+                      name="title"
+                      margin="dense"
+                      type="string"
+                    />
+                    <TextField
+                      fullWidth
+                      disabled
+                      defaultValue={work.description}
+                      variant="outlined"
+                      label="Descrição"
+                      name="description"
+                      margin="dense"
+                      type="string"
+                    />
+                    <TextField
+                      fullWidth
+                      disabled
+                      defaultValue={work.deploy_url}
+                      variant="outlined"
+                      label="URL"
+                      name="deploy_url"
+                      margin="dense"
+                      type="string"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

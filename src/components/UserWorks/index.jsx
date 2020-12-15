@@ -12,20 +12,18 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addUserWorkThunk } from "../../store/modules/loggedUser/thunk";
+import { addUserTechThunk } from "../../store/modules/loggedUser/thunk";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 
 const UserWorks = () => {
   const dispatch = useDispatch();
-
   const history = useHistory();
 
   const schema = yup.object().shape({
     title: yup.string().required("Required field"),
-    description: yup.string().required("Required field"),
-    deploy_url: yup.string().required("Required field"),
+    status: yup.string().required("Required field"),
   });
 
   const { register, handleSubmit, errors, setError } = useForm({
@@ -52,7 +50,7 @@ const UserWorks = () => {
   const classes = useStyles();
 
   const handleForm = (data) => {
-    dispatch(addUserWorkThunk(data));
+    dispatch(addUserTechThunk(data));
     console.log(data);
     history.push("/users/profile");
   };
@@ -60,7 +58,7 @@ const UserWorks = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(handleForm)} className={classes.root}>
-        <h1 className="labelCadastro">Adicionar Work</h1>
+        <h1 className="labelCadastro">Adicionar Tech</h1>
 
         <TextField
           variant="outlined"
@@ -73,27 +71,36 @@ const UserWorks = () => {
           helperText={errors.title?.message}
         />
 
-        <TextField
-          variant="outlined"
-          label="Descrição"
-          name="description"
-          margin="dense"
-          type="string"
-          inputRef={register}
-          error={!!errors.title}
-          helperText={errors.title?.message}
-        />
+        <FormControl className={classes.formControl}>
+          <InputLabel
+            variant="outlined"
+            margin="dense"
+            size="small"
+            error={!!errors.status}
+            id="status"
+          >
+            Nível
+          </InputLabel>
 
-        <TextField
-          variant="outlined"
-          label="URL"
-          name="deploy_url"
-          margin="dense"
-          type="string"
-          inputRef={register}
-          error={!!errors.title}
-          helperText={errors.title?.message}
-        />
+          <Select
+            error={!!errors.status}
+            native={true}
+            name="status"
+            inputRef={register}
+            label="select-module"
+            margin="dense"
+            size="small"
+            variant="outlined"
+          >
+            <option value=""></option>
+            <option value="Iniciante">Iniciante</option>
+            <option value="Intermediário">Intermediário</option>
+            <option value="Avançado">Avançado</option>
+          </Select>
+          <FormHelperText style={{ color: "red" }}>
+            {errors.status?.message}
+          </FormHelperText>
+        </FormControl>
 
         <Button
           type="submit"
@@ -101,7 +108,7 @@ const UserWorks = () => {
           variant="contained"
           color="primary"
         >
-          Adicionar Work
+          Adicionar Tech
         </Button>
         <p style={{ color: "red" }}>{errors.registerError?.message}</p>
       </form>

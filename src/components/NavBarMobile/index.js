@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   Button,
@@ -12,7 +12,7 @@ import {
   AppBar,
   Toolbar,
 } from "@material-ui/core";
-
+import { logoutUserThunk } from "../../store/modules/loggedUser/thunk";
 import MenuIcon from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
@@ -32,22 +32,10 @@ const useStyles = makeStyles((theme) => ({
 const NavBarMobile = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const token = useSelector(
-    ({
-      UsersDataReducer: {
-        loggedUser: { token },
-      },
-    }) => token,
-  );
-  const user_id = useSelector(
-    ({
-      UsersDataReducer: {
-        loggedUser: {
-          user: { id },
-        },
-      },
-    }) => id,
-  );
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.LoggedUserReducer.token);
+  const [toggleLogout, setToggleLogout] = useState(false);
 
   const classes = useStyles();
   const handleClick = (event) => {
@@ -57,7 +45,19 @@ const NavBarMobile = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  return token === "" ? (
+
+  const handlelogout = () => {
+    setToggleLogout(!toggleLogout);
+    dispatch(logoutUserThunk());
+  };
+
+  useEffect(() => {
+    if (!token) {
+      history.push("/login");
+    }
+  }, [token, toggleLogout]);
+
+  return !token ? (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
@@ -146,7 +146,7 @@ const NavBarMobile = () => {
           <Typography variant="h6" className={classes.title}>
             USERS
           </Typography>
-          <Button>Logout</Button>
+          <Button onClick={handlelogout}>Logout</Button>
         </Toolbar>
       </AppBar>
     </div>
