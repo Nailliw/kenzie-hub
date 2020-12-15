@@ -1,28 +1,6 @@
-form {
-  width: 30vw;
-  min-width: 15rem;
-  margin: 0 auto;
-  margin-top: 2vh;
-  padding: 1%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #eafaea;
-  border-radius: 5px;
-  box-shadow: 0 2px 3px #000;
-}
-
 p {
   margin: 1%;
   text-align: center;
-}
-
-.labelCadastro {
-  font-size: 2rem;
-  font-weight: 900;
-  text-align: center;
-  color: #239023;
 }
 
 .LoginButton {
@@ -30,5 +8,5 @@ p {
   position: static !important;
   display: block !important;
   margin: 0 auto !important;
-  background-color: #239023 !important;
+  background-color: blue !important;
 }

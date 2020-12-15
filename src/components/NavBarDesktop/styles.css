@@ -1,3 +1,8 @@
+header {
+  width: 100vw;
+  height: 6vh;
+}
+
 .paper {
   padding: 2.5vh 8vh;
   text-align: center;
