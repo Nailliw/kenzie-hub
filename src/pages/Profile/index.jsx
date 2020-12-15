@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { Redirect, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Redirect, useParams, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { IsLogged } from "../../components/IsLogged";
 
 //material ui
 import React from "react";
@@ -37,35 +37,25 @@ const useStyles = makeStyles((theme) => ({
 //
 
 const Profile = () => {
+  const loggedUser = useSelector((state) => state.LoggedUserReducer);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const data = loggedUser.user;
   const classes = useStyles();
   const params = useParams();
   const [id, setId] = useState(params.userID);
-  const [token, setToken] = useState(
-    JSON.parse(window.localStorage.getItem("loggedUser"))
-  );
-  const [data, setData] = useState();
 
   useEffect(() => {
-    if (id === "profile") {
-      axios
-        .get(`https://kenziehub.me/profile`, {
-          headers: { Authorization: "Bearer " + token.token },
-        })
-        .then((res) => {
-          setData(res.data);
-        })
-        .catch((err) => console.log(err));
-      console.log("perfil");
-    } else {
-      axios
-        .get(`https://kenziehub.me/users/${id}`)
-        .then((res) => {
-          setData(res.data);
-        })
-        .catch((err) => console.log(err));
-      console.log("nao perfil");
+    if (!IsLogged(dispatch)) {
+      history.push("/login");
     }
   }, []);
+
+  useEffect(() => {
+    if (!IsLogged(dispatch)) {
+      history.push("/login");
+    }
+  }, [loggedUser.token]);
 
   console.log(data);
 
