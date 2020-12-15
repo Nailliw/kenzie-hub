@@ -27,7 +27,7 @@ const UserCard = ({ user }) => {
 				</Box>
 				<Box className={classes.userInfo}>
 					<Box>
-						<Paper className={classes.devName} elevation={16}>
+						<Paper className={classes.devName} elevation={24}>
 							<Typography component="h5" variant="h5">
 								{name}
 							</Typography>

@@ -15,7 +15,7 @@ const SearchBar = () => {
 	);
 
 	const handleSearch = () => {
-		const newFilters = { ...usersFilters, tech: searchParam };
+		const newFilters = { ...usersFilters, page: 1, tech: searchParam };
 		dispatch(setUsersFiltersThunk(newFilters));
 		setSearchParam("");
 	};

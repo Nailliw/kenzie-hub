@@ -33,11 +33,12 @@ export const useStyles = makeStyles(() => ({
 	},
 
 	devName: {
-		backgroundColor: " #979797",
+		backgroundColor: " #fff",
 		borderRadius: "0.5rem",
 		padding: "0.2rem 1rem",
 		width: "fit-content",
 		margin: "1rem auto",
+		color: "#000",
 	},
 	jobInfo: {
 		"& span": {

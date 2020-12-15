@@ -15,7 +15,7 @@ const UserList = () => {
 			container
 			alignItems="center"
 			justify="center"
-			direction="column"
+			direction="row"
 			className={classes.usersList}
 		>
 			{usersList.map((user, index) => {

@@ -4,9 +4,9 @@ import { getUsersThunk } from "../../store/modules/usersList/thunk";
 import { useStyles } from "./styles.js";
 import { Box, Grid, Typography } from "@material-ui/core";
 
-import SearchBar from "../../components/users/SearchBar";
-import UserList from "../../components/users/UserList";
-import UsersNavBar from "../../components/users/UsersNavBar";
+import SearchBar from "../../components/Users/SearchBar";
+import UserList from "../../components/Users/UserList";
+import UsersNavBar from "../../components/Users/UsersNavBar";
 
 const Users = () => {
 	const classes = useStyles();
@@ -16,7 +16,7 @@ const Users = () => {
 
 	return (
 		<Box className={classes.usersContainer}>
-			<Typography gutterBottom component="h2" variant="h2" align="center">
+			<Typography gutterBottom component="h1" variant="h1" align="center">
 				Desenvolvedores
 			</Typography>
 			<Grid container justify="center" alignItems="center">
