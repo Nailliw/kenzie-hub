@@ -1,27 +1,30 @@
 import { useDispatch } from "react-redux";
-import { getUsersThunk } from "../../store/modules/usersData/thunk";
+import { getUsersThunk } from "../../store/modules/usersList/thunk";
 
-import "./styles.css";
-import SearchBar from "../../components/SearchBar";
-import FilterBar from "../../components/FilterBar";
-import UserList from "../../components/UserList";
-import NavBar from "../../components/NavBar";
+import { useStyles } from "./styles.js";
+import { Box, Grid, Typography } from "@material-ui/core";
+
+import SearchBar from "../../components/Users/SearchBar";
+import UserList from "../../components/Users/UserList";
+import UsersNavBar from "../../components/Users/UsersNavBar";
 
 const Users = () => {
-  const dispatch = useDispatch();
+  const classes = useStyles();
 
+  const dispatch = useDispatch();
   dispatch(getUsersThunk());
 
   return (
-    <div className="usersContainer">
-      <h1>Usuários</h1>
-      <SearchBar />
-      <div className="usersList">
-        <FilterBar />
-        <UserList />
-      </div>
-      <NavBar />
-    </div>
+    <Box className={classes.usersContainer}>
+      <Typography gutterBottom component="h1" variant="h1" align="center">
+        Desenvolvedores
+      </Typography>
+      <Grid container justify="center" alignItems="center">
+        <Grid item component={SearchBar} />
+        <Grid item component={UserList} />
+        <Grid item component={UsersNavBar} />
+      </Grid>
+    </Box>
   );
 };
 

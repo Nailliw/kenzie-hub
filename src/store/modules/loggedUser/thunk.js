@@ -45,30 +45,37 @@ export const loginUserThunk = (userLoginData) => {
   };
 };
 
+export const logoutUserThunk = () => {
+  return (dispatch, getState) => {
+    const newState = {};
+
+    window.localStorage.setItem("loggedUser", JSON.stringify(newState));
+
+    dispatch(updateLoggedUser(newState));
+  };
+};
+
 export const updateLoggedUserThunk = () => {
   return (dispatch, getState) => {
     let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
 
-    const { id } = loggedUser.user;
+    if (loggedUser) {
+      const { id } = loggedUser.user;
+      api
+        .get(`/users/${id}`)
+        .then((res) => {
+          const newState = { ...loggedUser, user: res.data };
 
-    api
-      .get(`/users/${id}`)
-      .then((res) => {
-        console.log(res);
+          console.log(newState);
 
-        const newState = res.data;
+          window.localStorage.setItem("loggedUser", JSON.stringify(newState));
 
-        console.log(newState);
-
-        const { loggedUser } = newState;
-
-        window.localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
-
-        dispatch(updateLoggedUser(newState));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+          dispatch(updateLoggedUser(newState));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 };
 
@@ -111,7 +118,7 @@ export const changeProfileThunk = (updatedProfile) => {
     let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
 
     let validation = loggedUser.headersToken;
-
+    console.log(updatedProfile);
     api
       .put(`/profile`, updatedProfile, validation)
       .then((res) => {
@@ -132,6 +139,7 @@ export const changeTechStatusThunk = (techStatus, idTech) => {
     api
       .put(`/users/techs/${idTech}`, techStatus, validation)
       .then((res) => {
+        console.log(res);
         dispatch(updateLoggedUserThunk());
       })
       .catch((error) => {
@@ -208,7 +216,7 @@ export const deleteLoggedUser = (idUser) => {
   };
 };
 
-export const uploadUserAvatar = (avatarData) => {
+export const uploadUserAvatarThunk = (avatarData) => {
   return (dispatch, getState) => {
     let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
 
