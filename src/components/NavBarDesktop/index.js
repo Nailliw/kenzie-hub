@@ -26,7 +26,7 @@ const NavBarDesktop = () => {
       UsersDataReducer: {
         loggedUser: { token },
       },
-    }) => token,
+    }) => token
   );
   const user_avatar = useSelector(
     ({
@@ -35,7 +35,7 @@ const NavBarDesktop = () => {
           user: { avatar_url },
         },
       },
-    }) => avatar_url,
+    }) => avatar_url
   );
 
   //handle/buttons functions
