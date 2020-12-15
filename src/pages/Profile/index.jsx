@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Redirect, useParams } from "react-router-dom";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+import RemoveTech from "../../components/RemoveTech/index";
 
 //material ui
 import React from "react";
@@ -39,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
   const classes = useStyles();
   const params = useParams();
+  const history = useHistory();
   const [id, setId] = useState(params.userID);
   const [token, setToken] = useState(
     JSON.parse(window.localStorage.getItem("loggedUser")) || []
@@ -111,10 +114,10 @@ const Profile = () => {
                     className={classes.editProfile}
                     color="primary"
                     onClick={() => {
-                      <Redirect to="edit"></Redirect>;
+                      history.push("/users/profile/edit");
                     }}
                   >
-                    Editar perfil
+                    Editar dados do perfil
                   </Button>
                 </CardActions>
               )}
@@ -128,8 +131,25 @@ const Profile = () => {
                   <Paper elevation={3} key={index} className={classes.paper}>
                     <p>skill: {tech.title}</p>
                     <p>nivel: {tech.status}</p>
+                    <button
+                      onClick={() => {
+                        console.log(tech.id);
+                      }}
+                    >
+                      editar
+                    </button>
+                    <RemoveTech id={tech.id}></RemoveTech>
                   </Paper>
                 ))}
+                <Paper elevation={3} className={classes.paper}>
+                  <button
+                    onClick={() => {
+                      history.push("/users/profile/edit");
+                    }}
+                  >
+                    Criar tech
+                  </button>
+                </Paper>
               </div>
             </div>
             <div className="test">

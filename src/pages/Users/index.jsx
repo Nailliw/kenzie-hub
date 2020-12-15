@@ -8,21 +8,21 @@ import UserList from "../../components/UserList";
 import NavBar from "../../components/NavBar";
 
 const Users = () => {
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	dispatch(getUsersThunk());
+  dispatch(getUsersThunk());
 
-	return (
-		<div className="usersContainer">
-			<h1>Usuários</h1>
-			<SearchBar />
-			<div className="usersList">
-				<FilterBar />
-				<UserList />
-			</div>
-			<NavBar />
-		</div>
-	);
+  return (
+    <div className="usersContainer">
+      <h1>Usuários</h1>
+      <SearchBar />
+      <div className="usersList">
+        <FilterBar />
+        <UserList />
+      </div>
+      <NavBar />
+    </div>
+  );
 };
 
 export default Users;
