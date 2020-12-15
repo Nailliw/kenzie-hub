@@ -12,31 +12,13 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { addUserTechThunk } from "../../store/modules/loggedUser/thunk";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 
 const UserTechs = () => {
-  const addUserTech = (userTech) => {
-    let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
-
-    let validation = loggedUser.headersToken;
-    console.log(loggedUser);
-    console.log(validation);
-
-    axios
-      .post(`https://kenziehub.me/users/techs`, userTech, validation)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-        setError("registerError", {
-          message: error.response.data.message,
-        });
-      });
-  };
-
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -68,7 +50,7 @@ const UserTechs = () => {
   const classes = useStyles();
 
   const handleForm = (data) => {
-    addUserTech(data);
+    dispatch(addUserTechThunk(data));
     console.log(data);
     history.push("/users/profile");
   };
