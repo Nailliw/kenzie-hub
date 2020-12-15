@@ -10,6 +10,7 @@ import {
   deleteWorkThunk,
   updateLoggedUserThunk,
 } from "../../store/modules/loggedUser/thunk";
+import UserTechs from "../../components/UserTechs/UserTechs";
 
 //material ui
 import React from "react";
@@ -371,6 +372,7 @@ const EditProfile = () => {
           </div>
         </div>
       )}
+      <UserTechs></UserTechs>
     </>
   );
 };
