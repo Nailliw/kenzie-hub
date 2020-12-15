@@ -8,9 +8,7 @@ import UserCard from "../UserCard";
 const UserList = () => {
 	const classes = useStyles();
 
-	const usersList = useSelector(
-		({ UsersDataReducer: { usersList } }) => usersList
-	);
+	const usersList = useSelector(({ UsersListReducer }) => UsersListReducer);
 
 	return (
 		<Grid

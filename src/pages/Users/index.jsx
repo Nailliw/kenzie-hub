@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { getUsersThunk } from "../../store/modules/usersData/thunk";
+import { getUsersThunk } from "../../store/modules/usersList/thunk";
 
 import { useStyles } from "./styles.js";
 import { Box, Grid, Typography } from "@material-ui/core";
