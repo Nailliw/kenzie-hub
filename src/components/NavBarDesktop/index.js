@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUserThunk } from "../../store/modules/loggedUser/thunk";
+import { IsLogged } from "../IsLogged";
 import "./styles.css";
 import HomeIcon from "@material-ui/icons/Home";
 import {
@@ -47,7 +48,7 @@ const NavBarDesktop = () => {
   };
 
   useEffect(() => {
-    if (!token) {
+    if (!IsLogged(dispatch)) {
       history.push("/login");
     }
   }, [token, toggleLogout]);

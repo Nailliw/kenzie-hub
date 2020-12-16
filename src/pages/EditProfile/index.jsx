@@ -16,6 +16,7 @@ import UserWorks from "../../components/UserWorks";
 //material ui
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import "./style.css";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -33,15 +34,15 @@ const useStyles = makeStyles((theme) => ({
   editProfile: {
     margin: "auto",
   },
-  paperRoot: {
-    display: "flex",
-    flexWrap: "wrap",
-    "& > *": {
-      margin: theme.spacing(4),
-      width: theme.spacing(24),
-      height: theme.spacing(24),
-    },
-  },
+  // paperRoot: {
+  //   display: "flex",
+  //   flexWrap: "wrap",
+  //   "& > *": {
+  //     margin: theme.spacing(4),
+  //     width: theme.spacing(24),
+  //     height: theme.spacing(24),
+  //   },
+  // },
 }));
 
 const EditProfile = () => {
@@ -60,7 +61,6 @@ const EditProfile = () => {
   let toggleRemove = false;
 
   useEffect(() => {
-    dispatch(updateLoggedUserThunk());
     if (!IsLogged(dispatch)) {
       history.push("/login");
     }
@@ -90,7 +90,7 @@ const EditProfile = () => {
   return (
     <>
       {works && techs && (
-        <div style={{ display: "flex" }}>
+        <div className="userEditContainer" style={{ display: "flex" }}>
           <div>
             <Card className={classes.userRoot}>
               {data.avatar_url ? (
@@ -190,16 +190,17 @@ const EditProfile = () => {
               </CardActions>
             </Card>
           </div>
+
           <div>
-            <UserTechs />
-            <UserWorks />
-          </div>
-          <div>
+            <div id="idInputData">
+              <UserTechs />
+              <UserWorks />
+            </div>
             <div className="test">
-              Hard skills
+              <p className="hardSkillsTitle">Hard Skills</p>
               <div className={classes.paperRoot}>
-                {techs.map((tech, index) => (
-                  <div key={index}>
+                {data.techs.map((tech, index) => (
+                  <div className="profileInformationCard" key={index}>
                     <TextField
                       fullWidth
                       disabled
@@ -261,10 +262,10 @@ const EditProfile = () => {
               </div>
             </div>
             <div className="test">
-              projetos
+              <p className="worksTitle">Trabalhos</p>
               <div className={classes.paperRoot}>
                 {data.works.map((work, index) => (
-                  <div key={index}>
+                  <div className="profileInformationCard" key={index}>
                     <TextField
                       fullWidth
                       defaultValue={

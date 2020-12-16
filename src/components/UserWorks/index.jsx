@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import axios from "axios";
-
 import { makeStyles } from "@material-ui/core/styles";
+import "./style.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
@@ -12,7 +10,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addUserTechThunk } from "../../store/modules/loggedUser/thunk";
+import { addUserWorkThunk } from "../../store/modules/loggedUser/thunk";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -33,7 +31,7 @@ const UserWorks = () => {
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
-      minWidth: 200,
+      minWidth: "75%",
       maxWidth: 200,
     },
     selectEmpty: {
@@ -50,69 +48,71 @@ const UserWorks = () => {
   const classes = useStyles();
 
   const handleForm = (data) => {
-    dispatch(addUserTechThunk(data));
+    dispatch(addUserWorkThunk(data));
     console.log(data);
-    history.push("/users/profile");
+    history.push("/users/profile/edit");
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(handleForm)} className={classes.root}>
-        <h1 className="labelCadastro">Adicionar Tech</h1>
+    <form
+      onSubmit={handleSubmit(handleForm)}
+      id={"idformWork"}
+      className={classes.root}
+    >
+      <h1 id="idWork">Adicionar Trabalho</h1>
 
-        <TextField
+      <TextField
+        variant="outlined"
+        label="Nome"
+        name="title"
+        margin="dense"
+        type="string"
+        inputRef={register}
+        error={!!errors.title}
+        helperText={errors.title?.message}
+      />
+
+      <FormControl className={classes.formControl}>
+        <InputLabel
           variant="outlined"
-          label="Nome"
-          name="title"
           margin="dense"
-          type="string"
-          inputRef={register}
-          error={!!errors.title}
-          helperText={errors.title?.message}
-        />
-
-        <FormControl className={classes.formControl}>
-          <InputLabel
-            variant="outlined"
-            margin="dense"
-            size="small"
-            error={!!errors.status}
-            id="status"
-          >
-            Nível
-          </InputLabel>
-
-          <Select
-            error={!!errors.status}
-            native={true}
-            name="status"
-            inputRef={register}
-            label="select-module"
-            margin="dense"
-            size="small"
-            variant="outlined"
-          >
-            <option value=""></option>
-            <option value="Iniciante">Iniciante</option>
-            <option value="Intermediário">Intermediário</option>
-            <option value="Avançado">Avançado</option>
-          </Select>
-          <FormHelperText style={{ color: "red" }}>
-            {errors.status?.message}
-          </FormHelperText>
-        </FormControl>
-
-        <Button
-          type="submit"
-          className="LoginButton"
-          variant="contained"
-          color="primary"
+          size="small"
+          error={!!errors.status}
+          id="status"
         >
-          Adicionar Tech
-        </Button>
-        <p style={{ color: "red" }}>{errors.registerError?.message}</p>
-      </form>
-    </div>
+          Nível
+        </InputLabel>
+
+        <Select
+          error={!!errors.status}
+          native={true}
+          name="status"
+          inputRef={register}
+          label="select-module"
+          margin="dense"
+          size="small"
+          variant="outlined"
+        >
+          <option value=""></option>
+          <option value="Iniciante">Iniciante</option>
+          <option value="Intermediário">Intermediário</option>
+          <option value="Avançado">Avançado</option>
+        </Select>
+        <FormHelperText style={{ color: "red" }}>
+          {errors.status?.message}
+        </FormHelperText>
+      </FormControl>
+
+      <Button
+        type="submit"
+        className="LoginButtonTech"
+        variant="contained"
+        color="primary"
+      >
+        Adicionar Tech
+      </Button>
+      <p style={{ color: "red" }}>{errors.registerError?.message}</p>
+    </form>
   );
 };
 

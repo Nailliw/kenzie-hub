@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux";
 import { getUsersThunk } from "../../store/modules/usersList/thunk";
+import { clearSelectUserThunk } from "../../store/modules/selectedUser/thunk";
+import { useEffect } from "react";
 
 import { useStyles } from "./styles.js";
 import { Box, Grid, Typography } from "@material-ui/core";
@@ -13,6 +15,10 @@ const Users = () => {
 
   const dispatch = useDispatch();
   dispatch(getUsersThunk());
+
+  useEffect(() => {
+    dispatch(clearSelectUserThunk());
+  }, []);
 
   return (
     <Box className={classes.usersContainer}>

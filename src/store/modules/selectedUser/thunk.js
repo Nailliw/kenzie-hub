@@ -21,3 +21,10 @@ export const selectUserThunk = (userId) => {
       });
   };
 };
+
+export const clearSelectUserThunk = (userId) => {
+  return (dispatch, getState) => {
+    window.localStorage.removeItem("selectedUser");
+    dispatch(updateSelectedUser({}));
+  };
+};
