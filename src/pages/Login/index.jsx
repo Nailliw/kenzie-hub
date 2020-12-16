@@ -3,14 +3,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUserThunk } from "../../store/modules/usersData/thunk";
+import { loginUserThunk } from "../../store/modules/loggedUser/thunk";
+import { IsLogged } from "../../components/IsLogged";
 import { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.UsersDataReducer);
+  const userId = useSelector((state) => state.LoggedUserReducer);
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -27,9 +28,8 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (userId.loggedUser?.user.id) {
+    if (IsLogged(dispatch)) {
       history.push(`/users/profile`);
-    } else {
     }
   }, [userId]);
 

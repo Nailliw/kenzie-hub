@@ -1,0 +1,19 @@
+#idformWork {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2%;
+  margin: 1%;
+  box-shadow: 0 2px 5px #000;
+  border-radius: 5%;
+  background-color: rgb(218, 228, 240);
+}
+
+#idWork {
+  color: rgb(17, 17, 168);
+}
+
+.LoginButtonWork {
+  background-color: blue;
+}

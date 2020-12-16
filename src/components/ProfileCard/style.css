@@ -1,13 +1,5 @@
-#idInputData {
-  width: 50vw;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 1%;
-}
-
 .userEditContainer {
-  background-color: #aaaaaa;
+  background-color: #d6d6d6;
 }
 
 .hardSkillsTitle {

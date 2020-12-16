@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import axios from "axios";
-
 import { makeStyles } from "@material-ui/core/styles";
+import "./style.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
@@ -16,10 +14,12 @@ import { addUserWorkThunk } from "../../store/modules/loggedUser/thunk";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 const UserWorks = () => {
+  const loggedUser = useSelector((state) => state.LoggedUserReducer);
+  const data = loggedUser.user;
   const dispatch = useDispatch();
-
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -35,7 +35,7 @@ const UserWorks = () => {
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
-      minWidth: 200,
+      minWidth: "75%",
       maxWidth: 200,
     },
     selectEmpty: {
@@ -54,58 +54,60 @@ const UserWorks = () => {
   const handleForm = (data) => {
     dispatch(addUserWorkThunk(data));
     console.log(data);
-    history.push("/users/profile");
+    history.push("/users/profile/edit");
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(handleForm)} className={classes.root}>
-        <h1 className="labelCadastro">Adicionar Work</h1>
+    <form
+      onSubmit={handleSubmit(handleForm)}
+      id={"idformWork"}
+      className={classes.root}
+    >
+      <h1 id="idWork">Adicionar Trabalho</h1>
 
-        <TextField
-          variant="outlined"
-          label="Nome"
-          name="title"
-          margin="dense"
-          type="string"
-          inputRef={register}
-          error={!!errors.title}
-          helperText={errors.title?.message}
-        />
+      <TextField
+        variant="outlined"
+        label="Nome"
+        name="title"
+        margin="dense"
+        type="string"
+        inputRef={register}
+        error={!!errors.title}
+        helperText={errors.title?.message}
+      />
 
-        <TextField
-          variant="outlined"
-          label="Descrição"
-          name="description"
-          margin="dense"
-          type="string"
-          inputRef={register}
-          error={!!errors.title}
-          helperText={errors.title?.message}
-        />
+      <TextField
+        variant="outlined"
+        label="Descrição"
+        name="description"
+        margin="dense"
+        type="string"
+        inputRef={register}
+        error={!!errors.title}
+        helperText={errors.title?.message}
+      />
 
-        <TextField
-          variant="outlined"
-          label="URL"
-          name="deploy_url"
-          margin="dense"
-          type="string"
-          inputRef={register}
-          error={!!errors.title}
-          helperText={errors.title?.message}
-        />
+      <TextField
+        variant="outlined"
+        label="URL"
+        name="deploy_url"
+        margin="dense"
+        type="string"
+        inputRef={register}
+        error={!!errors.title}
+        helperText={errors.title?.message}
+      />
 
-        <Button
-          type="submit"
-          className="LoginButton"
-          variant="contained"
-          color="primary"
-        >
-          Adicionar Work
-        </Button>
-        <p style={{ color: "red" }}>{errors.registerError?.message}</p>
-      </form>
-    </div>
+      <Button
+        type="submit"
+        className="LoginButtonWork"
+        variant="contained"
+        color="primary"
+      >
+        Adicionar Work
+      </Button>
+      <p style={{ color: "red" }}>{errors.registerError?.message}</p>
+    </form>
   );
 };
 
