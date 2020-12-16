@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
   formInfo: {
     height: "14%",
     width: "100%",
-    backgroundColor: "green",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -42,13 +41,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-    width: "70px",
-    height: "70px",
+    width: "10%",
+    height: "70%",
   },
 
   labelCadastro: {
     width: "80%",
-    backgroundColor: "red",
     fontWeight: "500",
     textAlign: "center",
     color: "rgb(8,53,108)",
@@ -61,13 +59,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     alignItems: "center",
-    justifyContent: "space-around",
-    // flexDirection: "column",
-    backgroundColor: "yellow",
+    // justifyContent: "space-around",
+    flexDirection: "column",
+    justifyContent: "center",
   },
 
   teste: {
-    width: "40%",
+    width: "60%",
     height: "13%",
     display: "flex",
     alignItems: "baseline",
@@ -93,8 +91,8 @@ const useStyles = makeStyles((theme) => ({
 
   select: {
     margin: theme.spacing(1),
-    minWidth: "50%",
-    maxWidth: "50%",
+    minWidth: "100%",
+    maxWidth: "100%",
     "& label.Mui-focused": {
       color: "rgb(8,53,108)",
     },
@@ -132,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
   loginButton: {
     alignItems: "center",
     width: "40%",
-    height: "50%",
+    height: "40%",
     color: "white",
     backgroundColor: "rgba(8,53,108)",
     border: "1px solid black",
