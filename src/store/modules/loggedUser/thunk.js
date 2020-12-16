@@ -16,7 +16,7 @@ export const registerUserThunk = (userData) => {
   };
 };
 
-export const loginUserThunk = (userLoginData) => {
+export const loginUserThunk = (userLoginData, setError) => {
   return (dispatch, getState) => {
     const { LoggedUserReducer } = getState();
     console.log(LoggedUserReducer);
@@ -39,9 +39,11 @@ export const loginUserThunk = (userLoginData) => {
 
         dispatch(updateLoggedUser(newState));
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) =>
+        setError("userLogin", {
+          message: "E-mail incorreto / Senha incorreta",
+        })
+      );
   };
 };
 
