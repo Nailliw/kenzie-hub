@@ -1,7 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 import background from "./img/register-kenzie-hub-blended.png";
 import logo from "./img/logo-kenzie-academy.png";
-import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -11,13 +10,72 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     overflow: "hidden",
     height: "94vh",
-    maxWidth: "100vw",
-    maxHeight: "100%",
+    width: "100vw",
     display: "flex",
     alignItems: "center",
   },
-  input: {
+
+  formRegister: {
+    marginLeft: "10vw",
+    backgroundColor: "rgba(255, 255, 255, 0.883)",
+    width: "35vw",
+    height: "80vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: "10px",
+    boxShadow: "0.1em 0.1em 0.2em black",
+  },
+
+  formInfo: {
+    height: "14%",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  logo: {
+    backgroundImage: `url(${logo})`,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    width: "10%",
+    height: "70%",
+  },
+
+  labelCadastro: {
+    width: "80%",
+    fontWeight: "500",
+    textAlign: "center",
+    color: "rgb(8,53,108)",
+    textShadow: "0.02em 0.05em 0.02em rgb(0,0,0)",
+  },
+
+  inputArea: {
+    height: "70%",
+    width: "100%",
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    // justifyContent: "space-around",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+
+  teste: {
     width: "60%",
+    height: "13%",
+    display: "flex",
+    alignItems: "baseline",
+    justifyContent: "center",
+  },
+
+  input: {
+    width: "100%",
+    height: "13%",
+    margin: "0",
     "& label.Mui-focused": {
       color: "rgb(8,53,108)",
     },
@@ -33,8 +91,8 @@ const useStyles = makeStyles((theme) => ({
 
   select: {
     margin: theme.spacing(1),
-    minWidth: "60%",
-    maxWidth: "60%",
+    minWidth: "100%",
+    maxWidth: "100%",
     "& label.Mui-focused": {
       color: "rgb(8,53,108)",
     },
@@ -47,35 +105,11 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-  root: {
-    marginLeft: "60px",
-    backgroundColor: "rgba(255, 255, 255, 0.883)",
-    width: "30%",
-    height: "80%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "10px",
-    boxShadow: "0.1em 0.1em 0.2em black",
-  },
-  logo: {
-    backgroundImage: `url(${logo})`,
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    width: "70px",
-    height: "70px",
-  },
-  labelCadastro: {
-    fontWeight: "500",
-    textAlign: "center",
-    color: "rgb(8,53,108)",
-    textShadow: "0.02em 0.05em 0.02em rgb(0,0,0)",
-  },
+
   feedbackMessage: {
     width: "100%",
     height: "5vh",
@@ -83,8 +117,20 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+
+  formBottom: {
+    width: "100%",
+    height: "14%",
+    color: "red",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+
   loginButton: {
+    alignItems: "center",
     width: "40%",
+    height: "40%",
     color: "white",
     backgroundColor: "rgba(8,53,108)",
     border: "1px solid black",
