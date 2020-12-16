@@ -49,7 +49,7 @@ export const logoutUserThunk = () => {
   return (dispatch, getState) => {
     const newState = {};
 
-    window.localStorage.setItem("loggedUser", JSON.stringify(newState));
+    window.localStorage.clear();
 
     dispatch(updateLoggedUser(newState));
   };

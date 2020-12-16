@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUserThunk } from "../../store/modules/loggedUser/thunk";
+import { IsLogged } from "../IsLogged";
 import "./styles.css";
 import HomeIcon from "@material-ui/icons/Home";
 import {
@@ -19,15 +20,11 @@ const NavBarDesktop = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
   let history = useHistory();
+  const dispatch = useDispatch();
+  const [toggleLogout, setToggleLogout] = useState(false);
   //selectors
 
-  const token = useSelector(
-    ({
-      UsersDataReducer: {
-        loggedUser: { token },
-      },
-    }) => token
-  );
+  const token = useSelector((state) => state.LoggedUserReducer.token);
   const user_avatar = useSelector(
     ({
       UsersDataReducer: {
@@ -46,11 +43,17 @@ const NavBarDesktop = () => {
     setAnchorEl(null);
   };
   const handlelogout = () => {
-    window.localStorage.removeItem("loggedUser");
-    history.push("/");
+    setToggleLogout(!toggleLogout);
+    dispatch(logoutUserThunk());
   };
 
-  return token === "" ? (
+  useEffect(() => {
+    if (!IsLogged(dispatch)) {
+      history.push("/login");
+    }
+  }, [token, toggleLogout]);
+
+  return !token ? (
     <header>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
