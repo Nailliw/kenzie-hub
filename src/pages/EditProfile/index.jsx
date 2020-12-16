@@ -35,15 +35,6 @@ const useStyles = makeStyles((theme) => ({
   editProfile: {
     margin: "auto",
   },
-  // paperRoot: {
-  //   display: "flex",
-  //   flexWrap: "wrap",
-  //   "& > *": {
-  //     margin: theme.spacing(4),
-  //     width: theme.spacing(24),
-  //     height: theme.spacing(24),
-  //   },
-  // },
 }));
 
 const EditProfile = () => {

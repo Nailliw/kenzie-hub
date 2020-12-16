@@ -22,7 +22,7 @@ export const selectUserThunk = (userId) => {
   };
 };
 
-export const clearSelectUserThunk = (userId) => {
+export const clearSelectUserThunk = () => {
   return (dispatch, getState) => {
     window.localStorage.removeItem("selectedUser");
     dispatch(updateSelectedUser({}));
