@@ -1,4 +1,5 @@
 import React from "react";
+import "./styles.css";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Avatar,
@@ -12,7 +13,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 const useStyles = makeStyles(() => ({
   root: {
-    width: 345,
+    width: 160,
     height: 150,
     margin: 10,
   },
@@ -21,11 +22,10 @@ const UserCard = ({ list }) => {
   const classes = useStyles();
   return (
     <div>
-      <Card className={classes.root}>
+      <Card id="specialsffects" className={classes.root}>
         <CardHeader
           avatar={<Avatar src={list.avatar_url}></Avatar>}
           title={list.name}
-          subheader={list.bio}
         />
         <CardActions>
           <IconButton aria-label="Repositório GitHub">
