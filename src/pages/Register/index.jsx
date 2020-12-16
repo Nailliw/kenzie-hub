@@ -207,7 +207,9 @@ const Register = () => {
                 Registro Concluído
               </h2>
             ) : (
-              <h2 style={{ color: "red" }}>{errors.registerError?.message}</h2>
+              <h2 style={{ color: "red", textAlign: "center" }}>
+                {errors.registerError?.message}
+              </h2>
             )}
           </div>
         </Box>
