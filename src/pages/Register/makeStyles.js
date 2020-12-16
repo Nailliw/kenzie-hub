@@ -10,16 +10,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     overflow: "hidden",
     height: "94vh",
-    maxWidth: "100vw",
-    maxHeight: "100%",
+    width: "100vw",
     display: "flex",
     alignItems: "center",
   },
 
-  root: {
+  formRegister: {
     marginLeft: "10vw",
     backgroundColor: "rgba(255, 255, 255, 0.883)",
-    width: "30vw",
+    width: "35vw",
     height: "80vh",
     display: "flex",
     flexDirection: "column",
@@ -27,6 +26,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     borderRadius: "10px",
     boxShadow: "0.1em 0.1em 0.2em black",
+  },
+
+  formInfo: {
+    height: "14%",
+    width: "100%",
+    backgroundColor: "green",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   logo: {
@@ -47,9 +55,29 @@ const useStyles = makeStyles((theme) => ({
     textShadow: "0.02em 0.05em 0.02em rgb(0,0,0)",
   },
 
-  input: {
-    width: "60%",
+  inputArea: {
+    height: "70%",
+    width: "100%",
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-around",
+    // flexDirection: "column",
+    backgroundColor: "yellow",
+  },
 
+  teste: {
+    width: "40%",
+    height: "13%",
+    display: "flex",
+    alignItems: "baseline",
+    justifyContent: "center",
+  },
+
+  input: {
+    width: "100%",
+    height: "13%",
+    margin: "0",
     "& label.Mui-focused": {
       color: "rgb(8,53,108)",
     },
@@ -65,8 +93,8 @@ const useStyles = makeStyles((theme) => ({
 
   select: {
     margin: theme.spacing(1),
-    minWidth: "60%",
-    maxWidth: "60%",
+    minWidth: "50%",
+    maxWidth: "50%",
     "& label.Mui-focused": {
       color: "rgb(8,53,108)",
     },
@@ -92,8 +120,19 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
 
+  formBottom: {
+    width: "100%",
+    height: "14%",
+    color: "red",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+
   loginButton: {
+    alignItems: "center",
     width: "40%",
+    height: "50%",
     color: "white",
     backgroundColor: "rgba(8,53,108)",
     border: "1px solid black",

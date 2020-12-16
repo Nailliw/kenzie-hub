@@ -52,154 +52,160 @@ const Register = () => {
   };
 
   return (
-    <div className={classes.main}>
-      <form onSubmit={handleSubmit(handleForm)} className={classes.root}>
-        <div className={classes.logo} />
+    <Box className={classes.main}>
+      <form
+        onSubmit={handleSubmit(handleForm)}
+        className={classes.formRegister}
+      >
+        <Box className={classes.formInfo}>
+          <Box className={classes.logo} />
 
-        <Typography
-          gutterBottom
-          component="h3"
-          variant="h3"
-          className={classes.labelCadastro}
-        >
-          Cadastro de Usuário
-        </Typography>
-
-        <TextField
-          className={classes.input}
-          variant="outlined"
-          label="Nome"
-          name="name"
-          margin="dense"
-          type="string"
-          inputRef={register}
-          error={!!errors.name}
-          helperText={errors.name?.message}
-        />
-
-        <TextField
-          className={classes.input}
-          variant="outlined"
-          label="Email"
-          name="email"
-          margin="dense"
-          type="email"
-          inputRef={register}
-          error={!!errors.email}
-          helperText={errors.email?.message}
-        />
-
-        <TextField
-          className={classes.input}
-          multiline
-          rows={2}
-          rowsMax={4}
-          variant="outlined"
-          label="
-        Biografia"
-          name="bio"
-          margin="dense"
-          type="string"
-          inputRef={register}
-          error={!!errors.bio}
-          helperText={errors.bio?.message}
-        />
-
-        <TextField
-          className={classes.input}
-          variant="outlined"
-          label="Contato"
-          name="contact"
-          margin="dense"
-          type="string"
-          inputRef={register}
-          error={!!errors.contact}
-          helperText={errors.contact?.message}
-        />
-
-        <TextField
-          className={classes.input}
-          variant="outlined"
-          label="Senha"
-          name="password"
-          margin="dense"
-          type="password"
-          inputRef={register}
-          error={!!errors.password}
-          helperText={errors.password?.message}
-        />
-
-        <TextField
-          className={classes.input}
-          variant="outlined"
-          label="Repita a senha"
-          name="password_confirmation"
-          margin="dense"
-          type="password"
-          inputRef={register}
-          error={!!errors.password}
-          helperText={errors.password_confirmation?.message}
-        />
-
-        <FormControl className={classes.select}>
-          <InputLabel
-            variant="outlined"
-            margin="dense"
-            size="small"
-            error={!!errors.course_module}
-            id="select-module"
+          <Typography
+            component="h3"
+            variant="h3"
+            className={classes.labelCadastro}
           >
-            Módulo do curso
-          </InputLabel>
-
-          <Select
-            error={!!errors.course_module}
-            native={true}
-            name="course_module"
+            Cadastro de Usuário
+          </Typography>
+        </Box>
+        <Box className={classes.inputArea}>
+          <Box className={classes.teste}>
+            <TextField
+              className={classes.input}
+              variant="outlined"
+              label="Nome"
+              name="name"
+              margin="dense"
+              type="string"
+              inputRef={register}
+              error={!!errors.name}
+              helperText={errors.name?.message}
+            />
+          </Box>
+          <TextField
+            className={classes.input}
+            variant="outlined"
+            label="Email"
+            name="email"
+            margin="dense"
+            type="email"
             inputRef={register}
-            labelId="select-module"
-            label="Módulo do curso"
+            error={!!errors.email}
+            helperText={errors.email?.message}
+          />
+
+          <TextField
+            className={classes.input}
+            multiline
+            rowsMax={4}
+            variant="outlined"
+            label="
+        Biografia"
+            name="bio"
             margin="dense"
-            size="small"
+            type="string"
+            inputRef={register}
+            error={!!errors.bio}
+            helperText={errors.bio?.message}
+          />
+
+          <TextField
+            className={classes.input}
+            variant="outlined"
+            label="Contato"
+            name="contact"
+            margin="dense"
+            type="string"
+            inputRef={register}
+            error={!!errors.contact}
+            helperText={errors.contact?.message}
+          />
+
+          <TextField
+            className={classes.input}
+            variant="outlined"
+            label="Senha"
+            name="password"
+            margin="dense"
+            type="password"
+            inputRef={register}
+            error={!!errors.password}
+            helperText={errors.password?.message}
+          />
+
+          <TextField
+            className={classes.input}
+            variant="outlined"
+            label="Repita a senha"
+            name="password_confirmation"
+            margin="dense"
+            type="password"
+            inputRef={register}
+            error={!!errors.password}
+            helperText={errors.password_confirmation?.message}
+          />
+
+          <FormControl className={classes.select}>
+            <InputLabel
+              variant="outlined"
+              margin="dense"
+              size="small"
+              error={!!errors.course_module}
+              id="select-module"
+            >
+              Módulo do curso
+            </InputLabel>
+
+            <Select
+              error={!!errors.course_module}
+              native={true}
+              name="course_module"
+              inputRef={register}
+              labelId="select-module"
+              label="Módulo do curso"
+              margin="dense"
+              size="small"
+              variant="outlined"
+            >
+              <option value=""></option>
+              <option value="primeira módulo (introdução ao FrontEnd)">
+                Primeiro módulo (Introdução ao FrontEnd)
+              </option>
+              <option value="Segundo módulo (FrontEnd Avançado)">
+                Segundo módulo (FrontEnd Avançado)
+              </option>
+              <option value="Terceiro módulo (introdução ao BackEnd)">
+                Terceiro módulo (Introdução ao BackEnd)
+              </option>
+              <option value="Quarto módulo (BackEnd Avançado)">
+                Quarto módulo (BackEnd Avançado)
+              </option>
+            </Select>
+            <FormHelperText style={{ color: "red" }}>
+              {errors.course_module?.message}
+            </FormHelperText>
+          </FormControl>
+        </Box>
+        <Box className={classes.formBottom}>
+          <Button
+            type="submit"
+            className={classes.loginButton}
             variant="outlined"
           >
-            <option value=""></option>
-            <option value="primeira módulo (introdução ao FrontEnd)">
-              Primeiro módulo (Introdução ao FrontEnd)
-            </option>
-            <option value="Segundo módulo (FrontEnd Avançado)">
-              Segundo módulo (FrontEnd Avançado)
-            </option>
-            <option value="Terceiro módulo (introdução ao BackEnd)">
-              Terceiro módulo (Introdução ao BackEnd)
-            </option>
-            <option value="Quarto módulo (BackEnd Avançado)">
-              Quarto módulo (BackEnd Avançado)
-            </option>
-          </Select>
-          <FormHelperText style={{ color: "red" }}>
-            {errors.course_module?.message}
-          </FormHelperText>
-        </FormControl>
-
-        <Button
-          type="submit"
-          className={classes.loginButton}
-          variant="outlined"
-        >
-          Cadastrar
-        </Button>
-        <div className={classes.feedbackMessage}>
-          {registerSuccess ? (
-            <h2 style={{ color: "rgb(8,53,108)", textAlign: "center" }}>
-              Registro Concluído
-            </h2>
-          ) : (
-            <h2 style={{ color: "red" }}>{errors.registerError?.message}</h2>
-          )}
-        </div>
+            Cadastrar
+          </Button>
+          <div className={classes.feedbackMessage}>
+            {registerSuccess ? (
+              <h2 style={{ color: "rgb(8,53,108)", textAlign: "center" }}>
+                Registro Concluído
+              </h2>
+            ) : (
+              <h2 style={{ color: "red" }}>{errors.registerError?.message}</h2>
+            )}
+          </div>
+        </Box>
       </form>
-    </div>
+    </Box>
   );
 };
 
