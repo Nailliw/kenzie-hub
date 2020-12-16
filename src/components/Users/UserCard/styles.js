@@ -2,18 +2,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles(() => ({
 	userCard: {
-		width: "60%",
-		minWidth: "300px",
-		maxWidth: "600px",
+		minWidth: "280px",
+		maxWidth: "500px",
 		margin: "1rem",
-	},
-	userAvatar: {
-		width: "20%",
-		margin: "0 0.2rem",
-		"& img": {
-			width: "100%",
-			height: "100%",
-			borderRadius: "1rem",
+
+		"@media (min-width: 1400px)": {
+			margin: "2rem",
 		},
 	},
 
@@ -23,8 +17,30 @@ export const useStyles = makeStyles(() => ({
 		height: "150px",
 		backgroundColor: "#555555",
 		borderRadius: "1rem",
-		padding: "1rem",
+		padding: "0.5rem",
 		cursor: "pointer",
+
+		"@media (min-width: 600px)": {
+			padding: "1rem",
+		},
+	},
+
+	userAvatar: {
+		width: "40%",
+		maxWidth: "128px",
+		maxHeight: "128px",
+		height: "60%",
+		margin: "0 0.2rem",
+
+		"& img": {
+			width: "100%",
+			height: "100%",
+			borderRadius: "1rem",
+		},
+
+		"@media (min-width: 600px)": {
+			height: "100%",
+		},
 	},
 
 	userInfo: {
@@ -33,12 +49,32 @@ export const useStyles = makeStyles(() => ({
 	},
 
 	devName: {
+		color: "#000",
 		backgroundColor: " #fff",
 		borderRadius: "0.5rem",
-		padding: "0.2rem 1rem",
+		padding: "0.2rem 0.5rem",
+		margin: "0.5rem auto 1rem",
+
+		minWidth: "150px",
 		width: "fit-content",
-		margin: "1rem auto",
-		color: "#000",
+		maxWidth: "180px",
+		whiteSpace: "nowrap",
+		overflow: "hidden",
+
+		"& *": {
+			fontSize: "16px",
+		},
+
+		"@media (min-width: 600px)": {
+			minWidth: "250px",
+			maxWidth: "300px",
+			padding: "0.2rem 0.8rem",
+			marginBottom: "2rem",
+
+			"& *": {
+				fontSize: "20px",
+			},
+		},
 	},
 	jobInfo: {
 		"& span": {
