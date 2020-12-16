@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import GitHubCard from "../../components/Home/GitHubCard";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import backimage from "./img/it-specialist.jpg";
+import backimage from "./img/it-specialist_opa.jpg";
 import backimage2 from "./img/it-specialist.jpg";
 import { makeStyles } from "@material-ui/core/styles";
 
