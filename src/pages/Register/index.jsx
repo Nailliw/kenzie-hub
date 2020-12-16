@@ -7,6 +7,7 @@ import {
   FormHelperText,
   Box,
   Typography,
+  Input,
 } from "@material-ui/core/";
 import "./style.css";
 import { useState } from "react";
@@ -51,9 +52,10 @@ const Register = () => {
   };
 
   return (
-    <Box className={classes.main}>
+    <div className={classes.main}>
       <form onSubmit={handleSubmit(handleForm)} className={classes.root}>
-        <Box className={classes.logo} />
+        <div className={classes.logo} />
+
         <Typography
           gutterBottom
           component="h3"
@@ -62,6 +64,7 @@ const Register = () => {
         >
           Cadastro de Usuário
         </Typography>
+
         <TextField
           className={classes.input}
           variant="outlined"
@@ -196,7 +199,7 @@ const Register = () => {
           )}
         </div>
       </form>
-    </Box>
+    </div>
   );
 };
 
