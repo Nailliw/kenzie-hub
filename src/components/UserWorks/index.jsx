@@ -14,14 +14,18 @@ import { addUserWorkThunk } from "../../store/modules/loggedUser/thunk";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 const UserWorks = () => {
+  const loggedUser = useSelector((state) => state.LoggedUserReducer);
+  const data = loggedUser.user;
   const dispatch = useDispatch();
   const history = useHistory();
 
   const schema = yup.object().shape({
     title: yup.string().required("Required field"),
-    status: yup.string().required("Required field"),
+    description: yup.string().required("Required field"),
+    deploy_url: yup.string().required("Required field"),
   });
 
   const { register, handleSubmit, errors, setError } = useForm({
@@ -72,44 +76,35 @@ const UserWorks = () => {
         helperText={errors.title?.message}
       />
 
-      <FormControl className={classes.formControl}>
-        <InputLabel
-          variant="outlined"
-          margin="dense"
-          size="small"
-          error={!!errors.status}
-          id="status"
-        >
-          Nível
-        </InputLabel>
+      <TextField
+        variant="outlined"
+        label="Descrição"
+        name="description"
+        margin="dense"
+        type="string"
+        inputRef={register}
+        error={!!errors.title}
+        helperText={errors.title?.message}
+      />
 
-        <Select
-          error={!!errors.status}
-          native={true}
-          name="status"
-          inputRef={register}
-          label="select-module"
-          margin="dense"
-          size="small"
-          variant="outlined"
-        >
-          <option value=""></option>
-          <option value="Iniciante">Iniciante</option>
-          <option value="Intermediário">Intermediário</option>
-          <option value="Avançado">Avançado</option>
-        </Select>
-        <FormHelperText style={{ color: "red" }}>
-          {errors.status?.message}
-        </FormHelperText>
-      </FormControl>
+      <TextField
+        variant="outlined"
+        label="URL"
+        name="deploy_url"
+        margin="dense"
+        type="string"
+        inputRef={register}
+        error={!!errors.title}
+        helperText={errors.title?.message}
+      />
 
       <Button
         type="submit"
-        className="LoginButtonTech"
+        className="LoginButtonWork"
         variant="contained"
         color="primary"
       >
-        Adicionar Tech
+        Adicionar Work
       </Button>
       <p style={{ color: "red" }}>{errors.registerError?.message}</p>
     </form>

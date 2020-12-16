@@ -43,9 +43,11 @@ const Profile = () => {
     <>
       {console.log(loggedUser.user)}
       {userID !== "profile"
-        ? IsValidState(selectedUser) && <ProfileCard data={selectedUser} />
+        ? IsValidState(selectedUser) && (
+            <ProfileCard data={selectedUser} selectedUser={true} />
+          )
         : IsValidState(loggedUser.user) && (
-            <ProfileCard data={loggedUser.user} />
+            <ProfileCard data={loggedUser.user} selectedUser={false} />
           )}
     </>
   );

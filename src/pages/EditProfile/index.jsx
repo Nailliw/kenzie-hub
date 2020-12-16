@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import IsValidState from "../../components/IsValidState";
 import { IsLogged } from "../../components/IsLogged";
 import {
   changeProfileThunk,
@@ -70,14 +71,14 @@ const EditProfile = () => {
     if (!IsLogged(dispatch)) {
       history.push("/login");
     }
-    if (data) {
+    if (IsValidState(data)) {
       setTechs(data.techs);
       setWorks(data.works);
     }
   }, [loggedUser.token]);
 
   useEffect(() => {
-    if (data && toggleRemove === true) {
+    if (IsValidState(data) && toggleRemove === true) {
       console.log(toggleRemove);
       setTechs(data.techs);
       setWorks(data.works);
@@ -89,7 +90,7 @@ const EditProfile = () => {
 
   return (
     <>
-      {works && techs && (
+      {IsValidState(works) && IsValidState(techs) && IsValidState(data) && (
         <div className="userEditContainer" style={{ display: "flex" }}>
           <div>
             <Card className={classes.userRoot}>
@@ -264,115 +265,117 @@ const EditProfile = () => {
             <div className="test">
               <p className="worksTitle">Trabalhos</p>
               <div className={classes.paperRoot}>
-                {data.works.map((work, index) => (
-                  <div className="profileInformationCard" key={index}>
-                    <TextField
-                      fullWidth
-                      defaultValue={
-                        works.filter((e) => {
-                          return e.id === work.id;
-                        })[0].title
-                      }
-                      onChange={(evento) => {
-                        setWorks([
-                          ...works.map((e, i) => {
-                            if (e.id === work.id) {
-                              return { ...e, title: evento.target.value };
-                            }
-                            return e;
-                          }),
-                        ]);
-                      }}
-                      variant="outlined"
-                      label="Título"
-                      name="title"
-                      margin="dense"
-                      type="string"
-                    />
-                    <TextField
-                      fullWidth
-                      defaultValue={
-                        works.filter((e) => {
-                          return e.id === work.id;
-                        })[0].description
-                      }
-                      onChange={(evento) => {
-                        setWorks([
-                          ...works.map((e, i) => {
-                            if (e.id === work.id) {
-                              return {
-                                ...e,
-                                description: evento.target.value,
-                              };
-                            }
-                            return e;
-                          }),
-                        ]);
-                      }}
-                      variant="outlined"
-                      label="Descrição"
-                      name="description"
-                      margin="dense"
-                      type="string"
-                    />
-                    <TextField
-                      fullWidth
-                      defaultValue={
-                        works.filter((e) => {
-                          return e.id === work.id;
-                        })[0].deploy_url
-                      }
-                      onChange={(evento) => {
-                        setWorks([
-                          ...works.map((e, i) => {
-                            if (e.id === work.id) {
-                              return {
-                                ...e,
-                                deploy_url: evento.target.value,
-                              };
-                            }
-                            return e;
-                          }),
-                        ]);
-                      }}
-                      variant="outlined"
-                      label="URL"
-                      name="deploy_url"
-                      margin="dense"
-                      type="string"
-                    />
-                    <Button
-                      onClick={() => {
-                        dispatch(
-                          changeWorkInfoThunk(
-                            {
-                              title: works.filter((e) => {
-                                return e.id === work.id;
-                              })[0].title,
-                              description: works.filter((e) => {
-                                return e.id === work.id;
-                              })[0].description,
-                              deploy_url: works.filter((e) => {
-                                return e.id === work.id;
-                              })[0].deploy_url,
-                            },
-                            work.id
-                          )
-                        );
-                      }}
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      onClick={(e) => {
-                        dispatch(deleteWorkThunk(work.id));
-                        toggleRemove = true;
-                      }}
-                    >
-                      Remover
-                    </Button>
-                  </div>
-                ))}
+                {IsValidState(works) &&
+                  IsValidState(data) &&
+                  data.works.map((work, index) => (
+                    <div className="profileInformationCard" key={index}>
+                      <TextField
+                        fullWidth
+                        defaultValue={
+                          works.filter((e) => {
+                            return e.id === work.id;
+                          })[0].title
+                        }
+                        onChange={(evento) => {
+                          setWorks([
+                            ...works.map((e, i) => {
+                              if (e.id === work.id) {
+                                return { ...e, title: evento.target.value };
+                              }
+                              return e;
+                            }),
+                          ]);
+                        }}
+                        variant="outlined"
+                        label="Título"
+                        name="title"
+                        margin="dense"
+                        type="string"
+                      />
+                      <TextField
+                        fullWidth
+                        defaultValue={
+                          works.filter((e) => {
+                            return e.id === work.id;
+                          })[0].description
+                        }
+                        onChange={(evento) => {
+                          setWorks([
+                            ...works.map((e, i) => {
+                              if (e.id === work.id) {
+                                return {
+                                  ...e,
+                                  description: evento.target.value,
+                                };
+                              }
+                              return e;
+                            }),
+                          ]);
+                        }}
+                        variant="outlined"
+                        label="Descrição"
+                        name="description"
+                        margin="dense"
+                        type="string"
+                      />
+                      <TextField
+                        fullWidth
+                        defaultValue={
+                          works.filter((e) => {
+                            return e.id === work.id;
+                          })[0].deploy_url
+                        }
+                        onChange={(evento) => {
+                          setWorks([
+                            ...works.map((e, i) => {
+                              if (e.id === work.id) {
+                                return {
+                                  ...e,
+                                  deploy_url: evento.target.value,
+                                };
+                              }
+                              return e;
+                            }),
+                          ]);
+                        }}
+                        variant="outlined"
+                        label="URL"
+                        name="deploy_url"
+                        margin="dense"
+                        type="string"
+                      />
+                      <Button
+                        onClick={() => {
+                          dispatch(
+                            changeWorkInfoThunk(
+                              {
+                                title: works.filter((e) => {
+                                  return e.id === work.id;
+                                })[0].title,
+                                description: works.filter((e) => {
+                                  return e.id === work.id;
+                                })[0].description,
+                                deploy_url: works.filter((e) => {
+                                  return e.id === work.id;
+                                })[0].deploy_url,
+                              },
+                              work.id
+                            )
+                          );
+                        }}
+                      >
+                        Editar
+                      </Button>
+                      <Button
+                        onClick={(e) => {
+                          dispatch(deleteWorkThunk(work.id));
+                          toggleRemove = true;
+                        }}
+                      >
+                        Remover
+                      </Button>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

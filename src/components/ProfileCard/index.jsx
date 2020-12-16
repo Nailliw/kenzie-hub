@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 //material ui
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import "./style.css";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -20,15 +21,15 @@ const useStyles = makeStyles((theme) => ({
   editProfile: {
     margin: "auto",
   },
-  paperRoot: {
-    display: "flex",
-    flexWrap: "wrap",
-    "& > *": {
-      margin: theme.spacing(4),
-      width: theme.spacing(24),
-      height: theme.spacing(24),
-    },
-  },
+  // paperRoot: {
+  //   display: "flex",
+  //   flexWrap: "wrap",
+  //   "& > *": {
+  //     margin: theme.spacing(4),
+  //     width: theme.spacing(24),
+  //     height: theme.spacing(24),
+  //   },
+  // },
 }));
 
 const ProfileCard = (props) => {
@@ -36,7 +37,7 @@ const ProfileCard = (props) => {
   const classes = useStyles();
   console.log(props);
   return (
-    <div style={{ display: "flex" }}>
+    <div className="userEditContainer" style={{ display: "flex" }}>
       <div>
         <Card className={classes.userRoot}>
           {props.data.avatar_url ? (
@@ -106,24 +107,26 @@ const ProfileCard = (props) => {
           </CardContent>
 
           <CardActions>
-            <Button
-              className={classes.editProfile}
-              color="primary"
-              onClick={() => {
-                history.push("/users/profile/edit");
-              }}
-            >
-              Editar Perfil
-            </Button>
+            {!props.selectedUser && (
+              <Button
+                className={classes.editProfile}
+                color="primary"
+                onClick={() => {
+                  history.push("/users/profile/edit");
+                }}
+              >
+                Editar Perfil
+              </Button>
+            )}
           </CardActions>
         </Card>
       </div>
       <div>
         <div className="test">
-          Hard skills
+          <p className="hardSkillsTitle">Hard Skills</p>
           <div className={classes.paperRoot}>
             {props.data.techs.map((tech, index) => (
-              <div key={index}>
+              <div className="profileInformationCard" key={index}>
                 <TextField
                   fullWidth
                   disabled
@@ -149,10 +152,10 @@ const ProfileCard = (props) => {
           </div>
         </div>
         <div className="test">
-          projetos
+          <p className="worksTitle">Trabalhos</p>
           <div className={classes.paperRoot}>
             {props.data.works.map((work, index) => (
-              <div key={index}>
+              <div className="profileInformationCard" key={index}>
                 <TextField
                   fullWidth
                   disabled
