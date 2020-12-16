@@ -60,7 +60,7 @@ export const logoutUserThunk = () => {
 export const updateLoggedUserThunk = () => {
   return (dispatch, getState) => {
     let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
-
+    console.log(loggedUser);
     if (loggedUser) {
       const { id } = loggedUser.user;
       api

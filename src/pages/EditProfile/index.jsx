@@ -9,6 +9,7 @@ import {
   changeWorkInfoThunk,
   deleteTechThunk,
   deleteWorkThunk,
+  uploadUserAvatarThunk,
   updateLoggedUserThunk,
 } from "../../store/modules/loggedUser/thunk";
 import UserTechs from "../../components/UserTechs";
@@ -24,6 +25,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { updateLoggedUser } from "../../store/modules/loggedUser/actions";
 
 const useStyles = makeStyles((theme) => ({
   userRoot: {
@@ -50,7 +52,17 @@ const EditProfile = () => {
   const [course_module, setCourse_module] = useState();
   const [contact, setContact] = useState();
   const [email, setEmail] = useState();
-  let toggleRemove = false;
+  const [photo, setPhoto] = useState(null);
+
+  const handleAvatarChange = (e) => {
+    const newData = new FormData();
+    newData.append("avatar", e.target.files[0]);
+    setPhoto(newData);
+  };
+
+  const handleSalvarPhoto = () => {
+    dispatch(uploadUserAvatarThunk(photo));
+  };
 
   useEffect(() => {
     if (!IsLogged(dispatch)) {
@@ -69,23 +81,20 @@ const EditProfile = () => {
   }, [loggedUser.token]);
 
   useEffect(() => {
-    if (IsValidState(data) && toggleRemove === true) {
-      console.log(toggleRemove);
+    if (IsValidState(data)) {
       setTechs(data.techs);
       setWorks(data.works);
-      toggleRemove = false;
-      console.log(works);
       history.push("/users/profile/edit");
     }
   }, [data]);
 
   return (
     <>
-      {IsValidState(works) && IsValidState(techs) && IsValidState(data) && (
+      {IsValidState(data) && (
         <div className="userEditContainer" style={{ display: "flex" }}>
           <div>
             <Card className={classes.userRoot}>
-              {data.avatar_url ? (
+              {IsValidState(data.avatar_url) ? (
                 <CardMedia
                   className={classes.media}
                   image={data.avatar_url}
@@ -99,6 +108,11 @@ const EditProfile = () => {
                 />
               )}
               <CardContent>
+                <div>
+                  <input type="file" onChange={handleAvatarChange} />
+                  <button onClick={handleSalvarPhoto}>Salvar Foto</button>
+                </div>
+
                 <TextField
                   fullWidth
                   defaultValue={data.name}
@@ -239,12 +253,12 @@ const EditProfile = () => {
                         );
                       }}
                     >
-                      Editar
+                      Salvar Tech
                     </Button>
                     <Button
                       onClick={(e) => {
+                        console.log(tech.id);
                         dispatch(deleteTechThunk(tech.id));
-                        toggleRemove = true;
                       }}
                     >
                       Remover
@@ -262,11 +276,7 @@ const EditProfile = () => {
                     <div className="profileInformationCard" key={index}>
                       <TextField
                         fullWidth
-                        defaultValue={
-                          works.filter((e) => {
-                            return e.id === work.id;
-                          })[0].title
-                        }
+                        defaultValue={work.title}
                         onChange={(evento) => {
                           setWorks([
                             ...works.map((e, i) => {
@@ -285,11 +295,7 @@ const EditProfile = () => {
                       />
                       <TextField
                         fullWidth
-                        defaultValue={
-                          works.filter((e) => {
-                            return e.id === work.id;
-                          })[0].description
-                        }
+                        defaultValue={work.description}
                         onChange={(evento) => {
                           setWorks([
                             ...works.map((e, i) => {
@@ -311,11 +317,7 @@ const EditProfile = () => {
                       />
                       <TextField
                         fullWidth
-                        defaultValue={
-                          works.filter((e) => {
-                            return e.id === work.id;
-                          })[0].deploy_url
-                        }
+                        defaultValue={work.deploy_url}
                         onChange={(evento) => {
                           setWorks([
                             ...works.map((e, i) => {
@@ -355,12 +357,11 @@ const EditProfile = () => {
                           );
                         }}
                       >
-                        Editar
+                        Salvar Work
                       </Button>
                       <Button
                         onClick={(e) => {
                           dispatch(deleteWorkThunk(work.id));
-                          toggleRemove = true;
                         }}
                       >
                         Remover

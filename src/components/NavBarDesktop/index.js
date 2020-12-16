@@ -15,6 +15,7 @@ import {
   Toolbar,
 } from "@material-ui/core";
 import { useStyles, StyledMenu, StyledMenuItem } from "./helper";
+import IsValidState from "../IsValidState";
 import { useHistory } from "react-router-dom";
 const NavBarDesktop = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,16 +25,8 @@ const NavBarDesktop = () => {
   const [toggleLogout, setToggleLogout] = useState(false);
   //selectors
 
+  const loggedUser = useSelector((state) => state.LoggedUserReducer);
   const token = useSelector((state) => state.LoggedUserReducer.token);
-  const user_avatar = useSelector(
-    ({
-      UsersDataReducer: {
-        loggedUser: {
-          user: { avatar_url },
-        },
-      },
-    }) => avatar_url
-  );
 
   //handle/buttons functions
   const handleClick = (event) => {
@@ -110,7 +103,12 @@ const NavBarDesktop = () => {
               variant="text"
               onClick={handleClick}
             >
-              <Avatar src={user_avatar} />
+              <Avatar
+                src={
+                  IsValidState(loggedUser.user.avatar_url) &&
+                  loggedUser.user.avatar_url
+                }
+              />
             </Button>
           </div>
 
