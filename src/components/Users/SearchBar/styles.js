@@ -10,7 +10,7 @@ export const useStyles = makeStyles(() => ({
 	searchBar: {
 		width: "80%",
 		margin: "0 auto",
-		borderRadius: "2rem",
+		borderRadius: "1rem",
 		backgroundColor: "rgb(255, 255, 255)",
 	},
 }));

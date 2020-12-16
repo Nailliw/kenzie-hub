@@ -9,23 +9,28 @@ import UserList from "../../components/Users/UserList";
 import UsersNavBar from "../../components/Users/UsersNavBar";
 
 const Users = () => {
-  const classes = useStyles();
+	const classes = useStyles();
 
-  const dispatch = useDispatch();
-  dispatch(getUsersThunk());
+	const dispatch = useDispatch();
+	dispatch(getUsersThunk());
 
-  return (
-    <Box className={classes.usersContainer}>
-      <Typography gutterBottom component="h1" variant="h1" align="center">
-        Desenvolvedores
-      </Typography>
-      <Grid container justify="center" alignItems="center">
-        <Grid item component={SearchBar} />
-        <Grid item component={UserList} />
-        <Grid item component={UsersNavBar} />
-      </Grid>
-    </Box>
-  );
+	return (
+		<Box className={classes.usersContainer}>
+			<Typography
+				className={classes.devTitle}
+				component="h1"
+				variant="h1"
+				align="center"
+			>
+				Desenvolvedores
+			</Typography>
+			<Grid container justify="center" alignItems="center">
+				<Grid item component={SearchBar} />
+				<Grid item component={UserList} />
+				<Grid item component={UsersNavBar} />
+			</Grid>
+		</Box>
+	);
 };
 
 export default Users;
