@@ -1,15 +1,66 @@
-import GitHubCard from "../../components/GitHubCard";
+import {
+  Card,
+  CardHeader,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+} from "@material-ui/core";
+import GitHubCard from "../../components/Home/GitHubCard";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import backimage from "./img/it-specialist.jpg";
+import backimage2 from "./img/it-specialist.jpg";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+  card: {
+    padding: "5% 10% 5% 10%",
+    color: "white",
+    backgroundImage: `url(${backimage})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100%",
+  },
+  mobilecard: {
+    padding: "1% 10% 0% 10%",
+    color: "white",
+    backgroundImage: `url(${backimage2})`,
+    backgroundSize: "150%",
+  },
+  grid: {
+    minHeight: "15vh",
+    maxHeight: "25vh",
+    marginTop: "2%",
+    width: "30vw",
+  },
+  title: {
+    fontSize: "10px",
+  },
+}));
 const Home = () => {
+  const classes = useStyles();
+
+  const matches = useMediaQuery("(min-width:768px)");
   return (
     <div>
-      <h1>Kenzie Hub - API</h1>
-      <div>
-        Este é o backend da aplicação KenzieHub - Um hub de portfólios de
-        programadores daqui da Kenzie! O objetivo dessa aplicação é conseguir
-        criar um frontend de qualidade em grupo, utilizando o que foi ensinado
-        até então no curso (Q2) - E desenvolver hard skills e soft skills.
-      </div>
-      <div>“Sempre passar o que você aprendeu. - Mestre Yoda”</div>
+      <Card className={matches ? classes.card : classes.mobilecard}>
+        <CardHeader title="Kenzie Hub" />
+        <CardContent>
+          <Typography>
+            Este é o KenzieHub - Um hub de portfólios de programadores da
+            Kenzie!
+          </Typography>
+
+          <CardActions>
+            <Button variant="contained" size="large">
+              Nossos Devs
+            </Button>
+          </CardActions>
+          <div>
+            <strong>“Sempre passar o que você aprendeu. - Mestre Yoda”</strong>
+          </div>
+        </CardContent>
+      </Card>
+
       <GitHubCard />
     </div>
   );
