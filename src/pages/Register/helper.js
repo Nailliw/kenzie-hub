@@ -9,6 +9,7 @@ export const RegisterHelper = (
   return api
     .post(`/users`, { ...userData })
     .then((res) => {
+      console.log("registrou");
       setRegisterSuccess(true);
       setError("registerError", {
         message: "",

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUserThunk } from "../../store/modules/loggedUser/thunk";
+import { IsLogged } from "../IsLogged";
 import "./styles.css";
 import HomeIcon from "@material-ui/icons/Home";
 import {
@@ -14,30 +15,18 @@ import {
   Toolbar,
 } from "@material-ui/core";
 import { useStyles, StyledMenu, StyledMenuItem } from "./helper";
+import IsValidState from "../IsValidState";
 import { useHistory } from "react-router-dom";
 const NavBarDesktop = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
   let history = useHistory();
+  const dispatch = useDispatch();
+  const [toggleLogout, setToggleLogout] = useState(false);
   //selectors
 
-  const token = useSelector(
-    ({
-      UsersDataReducer: {
-        loggedUser: { token },
-      },
-    }) => token
-  );
-
-  const user_avatar = useSelector(
-    ({
-      UsersDataReducer: {
-        loggedUser: {
-          user: { avatar_url },
-        },
-      },
-    }) => avatar_url
-  );
+  const loggedUser = useSelector((state) => state.LoggedUserReducer);
+  const token = useSelector((state) => state.LoggedUserReducer.token);
 
   //handle/buttons functions
   const handleClick = (event) => {
@@ -47,11 +36,17 @@ const NavBarDesktop = () => {
     setAnchorEl(null);
   };
   const handlelogout = () => {
-    window.localStorage.removeItem("loggedUser");
-    history.push("/");
+    setToggleLogout(!toggleLogout);
+    dispatch(logoutUserThunk());
   };
 
-  return token === "" ? (
+  useEffect(() => {
+    if (!IsLogged(dispatch)) {
+      history.push("/login");
+    }
+  }, [token, toggleLogout]);
+
+  return !token ? (
     <header>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
@@ -108,7 +103,12 @@ const NavBarDesktop = () => {
               variant="text"
               onClick={handleClick}
             >
-              <Avatar src={user_avatar} />
+              <Avatar
+                src={
+                  IsValidState(loggedUser.user.avatar_url) &&
+                  loggedUser.user.avatar_url
+                }
+              />
             </Button>
           </div>
 

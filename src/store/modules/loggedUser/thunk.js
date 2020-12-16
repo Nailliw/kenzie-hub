@@ -16,7 +16,7 @@ export const registerUserThunk = (userData) => {
   };
 };
 
-export const loginUserThunk = (userLoginData) => {
+export const loginUserThunk = (userLoginData, setError) => {
   return (dispatch, getState) => {
     const { LoggedUserReducer } = getState();
     console.log(LoggedUserReducer);
@@ -39,9 +39,11 @@ export const loginUserThunk = (userLoginData) => {
 
         dispatch(updateLoggedUser(newState));
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) =>
+        setError("userLogin", {
+          message: "E-mail incorreto / Senha incorreta",
+        })
+      );
   };
 };
 
@@ -49,7 +51,7 @@ export const logoutUserThunk = () => {
   return (dispatch, getState) => {
     const newState = {};
 
-    window.localStorage.setItem("loggedUser", JSON.stringify(newState));
+    window.localStorage.clear();
 
     dispatch(updateLoggedUser(newState));
   };
@@ -58,7 +60,7 @@ export const logoutUserThunk = () => {
 export const updateLoggedUserThunk = () => {
   return (dispatch, getState) => {
     let loggedUser = JSON.parse(window.localStorage.getItem("loggedUser"));
-
+    console.log(loggedUser);
     if (loggedUser) {
       const { id } = loggedUser.user;
       api
