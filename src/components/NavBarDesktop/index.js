@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import { useDispatch, useSelector } from "react-redux";
 import { IsLogged } from "../IsLogged";
 import { logoutUserThunk } from "../../store/modules/loggedUser/thunk";
+=======
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUserThunk } from "../../store/modules/loggedUser/thunk";
+import { IsLogged } from "../IsLogged";
+>>>>>>> 15ba07b330f4297169bc69fd76441837996f085b
 import "./styles.css";
 import HomeIcon from "@material-ui/icons/Home";
 import {
@@ -15,12 +21,14 @@ import {
   Toolbar,
 } from "@material-ui/core";
 import { useStyles, StyledMenu, StyledMenuItem } from "./helper";
+import IsValidState from "../IsValidState";
 import { useHistory } from "react-router-dom";
 const NavBarDesktop = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
   let history = useHistory();
   const dispatch = useDispatch();
+<<<<<<< HEAD
 
   //selectors
   const user_avatar = useSelector(
@@ -32,6 +40,13 @@ const NavBarDesktop = () => {
       },
     }) => avatar_url,
   );
+=======
+  const [toggleLogout, setToggleLogout] = useState(false);
+  //selectors
+
+  const loggedUser = useSelector((state) => state.LoggedUserReducer);
+  const token = useSelector((state) => state.LoggedUserReducer.token);
+>>>>>>> 15ba07b330f4297169bc69fd76441837996f085b
 
   //handle/buttons functions
   const handleClick = (event) => {
@@ -42,11 +57,25 @@ const NavBarDesktop = () => {
   };
 
   const handlelogout = () => {
+<<<<<<< HEAD
     dispatch(logoutUserThunk());
     history.push("/");
   };
 
   return !IsLogged(dispatch) ? (
+=======
+    setToggleLogout(!toggleLogout);
+    dispatch(logoutUserThunk());
+  };
+
+  useEffect(() => {
+    if (!IsLogged(dispatch)) {
+      history.push("/login");
+    }
+  }, [token, toggleLogout]);
+
+  return !token ? (
+>>>>>>> 15ba07b330f4297169bc69fd76441837996f085b
     <header>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
@@ -103,7 +132,12 @@ const NavBarDesktop = () => {
               variant="text"
               onClick={handleClick}
             >
-              <Avatar src={user_avatar} />
+              <Avatar
+                src={
+                  IsValidState(loggedUser.user.avatar_url) &&
+                  loggedUser.user.avatar_url
+                }
+              />
             </Button>
           </div>
 

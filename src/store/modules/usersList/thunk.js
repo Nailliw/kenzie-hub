@@ -1,4 +1,5 @@
 import { updateUsersList } from "./actions";
+import { clearSelectUserThunk } from "../selectedUser/thunk";
 import { api } from "../../../services/api";
 
 export const getUsersThunk = () => {
@@ -19,6 +20,7 @@ export const getUsersThunk = () => {
 
         console.log(newState);
 
+        clearSelectUserThunk();
         dispatch(updateUsersList(newState));
       })
       .catch((error) => {

@@ -16,7 +16,12 @@ const Users = () => {
 
   return (
     <Box className={classes.usersContainer}>
-      <Typography gutterBottom component="h1" variant="h1" align="center">
+      <Typography
+        className={classes.devTitle}
+        component="h1"
+        variant="h1"
+        align="center"
+      >
         Desenvolvedores
       </Typography>
       <Grid container justify="center" alignItems="center">

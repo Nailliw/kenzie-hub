@@ -26,11 +26,11 @@ const TesteAPI = () => {
   let usuarios = [];
 
   useEffect(() => {
-    const userLogin = {
-      email: "felipesmTeste@email.com",
-      password: "123456",
-    };
-    dispatch(loginUserThunk(userLogin));
+    // const userLogin = {
+    //   email: "felipesmTeste@email.com",
+    //   password: "123456",
+    // };
+    // dispatch(loginUserThunk(userLogin));
   }, []);
 
   const handleAvatarChange = (e) => {
@@ -40,7 +40,6 @@ const TesteAPI = () => {
   };
 
   const handleButton = () => {
-    console.log(IsLogged(dispatch));
     const registerUser = {
       email: "felipesmTeste@email.com",
       password: "123456",

@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import GitHubCard from "../../components/Home/GitHubCard";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import backimage from "./img/it-specialist_opa.jpg";
+import backimage from "./img/programer-working_opa.jpg";
 import backimage2 from "./img/it-specialist.jpg";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -18,7 +18,9 @@ const useStyles = makeStyles(() => ({
     color: "white",
     backgroundImage: `url(${backimage})`,
     backgroundRepeat: "no-repeat",
-    backgroundSize: "100%",
+    backgroundSize: "cover",
+    backgroundPositionY: "70%",
+    height: "65vh",
   },
   mobilecard: {
     padding: "1% 10% 0% 10%",
@@ -43,7 +45,7 @@ const Home = () => {
   return (
     <div>
       <Card className={matches ? classes.card : classes.mobilecard}>
-        <CardHeader title="Kenzie Hub" />
+        <CardHeader title="KENZIE HUB " />
         <CardContent>
           <Typography>
             Este é o KenzieHub - Um hub de portfólios de programadores da
