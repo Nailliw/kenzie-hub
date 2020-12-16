@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "100%",
     display: "flex",
     alignItems: "center",
+    minHeight: "800px",
   },
   input: {
     width: "60%",
