@@ -1,7 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 import background from "./img/register-kenzie-hub-blended.png";
 import logo from "./img/logo-kenzie-academy.png";
-import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   main: {

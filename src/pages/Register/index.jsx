@@ -46,12 +46,13 @@ const Register = () => {
   const classes = useStyles();
 
   const handleForm = (data) => {
+    console.log(data);
     RegisterHelper(data, setError, setRegisterSuccess, history);
   };
 
   return (
     <Box className={classes.main}>
-      <FormControl onSubmit={handleSubmit(handleForm)} className={classes.root}>
+      <form onSubmit={handleSubmit(handleForm)} className={classes.root}>
         <Box className={classes.logo} />
         <Typography
           gutterBottom
@@ -83,6 +84,22 @@ const Register = () => {
           inputRef={register}
           error={!!errors.email}
           helperText={errors.email?.message}
+        />
+
+        <TextField
+          className={classes.input}
+          multiline
+          rows={2}
+          rowsMax={4}
+          variant="outlined"
+          label="
+        Biografia"
+          name="bio"
+          margin="dense"
+          type="string"
+          inputRef={register}
+          error={!!errors.bio}
+          helperText={errors.bio?.message}
         />
 
         <TextField
@@ -119,22 +136,6 @@ const Register = () => {
           inputRef={register}
           error={!!errors.password}
           helperText={errors.password_confirmation?.message}
-        />
-
-        <TextField
-          className={classes.input}
-          multiline
-          rows={4}
-          rowsMax={4}
-          variant="outlined"
-          label="
-        Biografia"
-          name="bio"
-          margin="dense"
-          type="string"
-          inputRef={register}
-          error={!!errors.bio}
-          helperText={errors.bio?.message}
         />
 
         <FormControl className={classes.select}>
@@ -185,10 +186,7 @@ const Register = () => {
         >
           Cadastrar
         </Button>
-        <div
-          // style={{ width: "200px", height: "100px" }}
-          className={classes.feedbackMessage}
-        >
+        <div className={classes.feedbackMessage}>
           {registerSuccess ? (
             <h2 style={{ color: "rgb(8,53,108)", textAlign: "center" }}>
               Registro Concluído
@@ -197,7 +195,7 @@ const Register = () => {
             <h2 style={{ color: "red" }}>{errors.registerError?.message}</h2>
           )}
         </div>
-      </FormControl>
+      </form>
     </Box>
   );
 };
