@@ -1,5 +1,5 @@
 import { UPDATE_LOGGEDUSER } from "./actionsType";
-const initialState = {};
+const initialState = { headerToken: "", token: "", user: {} };
 
 const LoggedUserReducer = (state = initialState, action) => {
   switch (action.type) {
