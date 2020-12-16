@@ -1,19 +1,30 @@
 import { updateUserData } from "./actions";
 import { api } from "../../../services/api";
 
-export const registerUserDataThunk = (userData, setError) => {
+export const registerUserDataThunk = (
+  userData,
+  setError,
+  setRegisterSucess,
+  history
+) => {
   return (dispatch) => {
     api
       .post(`/users`, { ...userData })
       .then((res) => {
-        console.log(res);
-        console.log("registrado");
-      })
-      .catch((error) =>
+        setRegisterSucess(true);
         setError("registerError", {
-          message: error.response.data.message,
-        })
-      );
+          message: "",
+        });
+        setTimeout(() => {
+          history.push("/login");
+        }, 3000);
+      })
+      .catch((error) => {
+        setRegisterSucess(false);
+        setError("registerError", {
+          message: "Email já Cadastrado",
+        });
+      });
   };
 };
 

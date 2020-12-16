@@ -22,7 +22,17 @@ const NavBarDesktop = () => {
   let history = useHistory();
   const dispatch = useDispatch();
 
+<<<<<<< HEAD:src/components/Home/NavBarDesktop/index.js
   //selectors
+=======
+  const token = useSelector(
+    ({
+      UsersDataReducer: {
+        loggedUser: { token },
+      },
+    }) => token
+  );
+>>>>>>> adb3aa884fc36d1222431e70e5956a425c107dbd:src/components/NavBarDesktop/index.js
   const user_avatar = useSelector(
     ({
       UsersDataReducer: {
@@ -30,7 +40,7 @@ const NavBarDesktop = () => {
           user: { avatar_url },
         },
       },
-    }) => avatar_url,
+    }) => avatar_url
   );
 
   //handle/buttons functions
