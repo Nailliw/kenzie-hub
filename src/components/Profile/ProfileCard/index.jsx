@@ -18,7 +18,7 @@ import {
 const ProfileCard = ({ data, selectedUser }) => {
 	const history = useHistory();
 	const classes = useStyles();
-	console.log(data);
+
 	return (
 		<Box className={classes.userEditContainer}>
 			<Box className={classes.cardContainer}>

@@ -1,0 +1,47 @@
+#idformTech {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2%;
+  margin: 1% auto;
+  text-align: center;
+  box-shadow: 0 2px 5px #000;
+  border-radius: 5%;
+  background-color: rgb(218, 228, 240);
+}
+
+#idTech {
+  color: rgb(17, 17, 168);
+}
+
+.LoginButtonTech {
+  background-color: blue;
+}
+
+@media screen and (min-width:600px) {
+  #idformTech {
+    width: 60%;
+    margin: 1rem;
+    min-width: 300px;
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (min-width:900px) {
+  #idformTech {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width:1200px) {
+  #idformTech {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width:1200px) {
+  #idformTech {
+    width: 30%;
+  }
+}
