@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(7),
   },
   appbar: {
-    width: "100vw",
+    // width: "100vw",
+    maxWidth: "100vw",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",

@@ -21,7 +21,7 @@ const NavBarMobile = () => {
   const dispatch = useDispatch();
   //const token = useSelector((state) => state.LoggedUserReducer.token);
   const { user, token } = useSelector(
-    ({ LoggedUserReducer }) => LoggedUserReducer,
+    ({ LoggedUserReducer }) => LoggedUserReducer
   );
   const [toggleLogout, setToggleLogout] = useState(false);
   const classes = useStyles();
