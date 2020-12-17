@@ -197,7 +197,9 @@ const EditProfile = () => {
                         email: email,
                       })
                     );
-                    history.push("/users/profile/edit");
+                    setTimeout(() => {
+                      history.push("/users/profile");
+                    }, 1000);
                   }}
                 >
                   Salvar Alterações
