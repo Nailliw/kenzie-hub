@@ -79,8 +79,8 @@ const useStyles = makeStyles(() => ({
 
   inputField: {
     width: "80%",
-    paddingBottom: "2rem",
-
+    height: "45%",
+    // paddingBottom: "2rem",
     display: "flex",
     alignItems: "baseline",
     justifyContent: "center",

@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "rgba(255, 255, 255, 0.883)",
     boxShadow: "0.1em 0.1em 0.2em black",
     minWidth: "250px",
-    maxHeight: "650px",
+    maxHeight: "850px",
     margin: "4vw",
     borderRadius: "2rem",
 
@@ -44,7 +44,6 @@ const useStyles = makeStyles(() => ({
   formInfo: {
     height: "14%",
     width: "100%",
-
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -89,9 +88,9 @@ const useStyles = makeStyles(() => ({
 
   inputField: {
     width: "80%",
-    height: "13%",
+    height: "30%",
     paddingBottom: "0.2rem",
-
+    padding: "10px",
     display: "flex",
     alignItems: "baseline",
     justifyContent: "center",
