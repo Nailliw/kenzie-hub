@@ -20,7 +20,7 @@ const Profile = () => {
 		if (!IsLogged(dispatch) && location.pathname === "/users/profile") {
 			history.push("/users");
 		}
-	}, []);
+	}, [loggedUser.token]);
 
 	console.log(userID);
 	console.log(selectedUser);
