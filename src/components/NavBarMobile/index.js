@@ -71,10 +71,10 @@ const NavBarMobile = () => {
             onClick={handleClick}
             edge="start"
             className={classes.menuButton}
-            color="inherit"
+            color="primary"
             aria-label="menu"
           >
-            <MenuIcon color="secondary" />
+            <MenuIcon color="primary" />
           </IconButton>
           <Menu
             id="fade-menu"
