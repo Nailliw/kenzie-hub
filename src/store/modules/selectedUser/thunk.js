@@ -2,29 +2,27 @@ import { updateSelectedUser } from "./actions";
 import { api } from "../../../services/api";
 
 export const selectUserThunk = (userId) => {
-  return (dispatch, getState) => {
-    api
-      .get(`/users/${userId}`)
-      .then((res) => {
-        console.log(res);
+	return (dispatch, getState) => {
+		dispatch(clearSelectUserThunk());
 
-        const newState = res.data;
+		api
+			.get(`/users/${userId}`)
+			.then((res) => {
+				const newState = res.data;
 
-        console.log(newState);
+				window.localStorage.setItem("selectedUser", JSON.stringify(newState));
 
-        window.localStorage.setItem("selectedUser", JSON.stringify(newState));
-
-        dispatch(updateSelectedUser(newState));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+				dispatch(updateSelectedUser(newState));
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 };
 
 export const clearSelectUserThunk = () => {
-  return (dispatch, getState) => {
-    window.localStorage.removeItem("selectedUser");
-    dispatch(updateSelectedUser({}));
-  };
+	return (dispatch, getState) => {
+		window.localStorage.removeItem("selectedUser");
+		dispatch(updateSelectedUser({}));
+	};
 };
