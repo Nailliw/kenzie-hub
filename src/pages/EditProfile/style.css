@@ -1,0 +1,30 @@
+#idInputData {
+  width: 50vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1%;
+}
+
+.userEditContainer {
+  background-color: #aaaaaa;
+}
+
+.hardSkillsTitle {
+  font-size: 2rem;
+  font-weight: bolder;
+  color: brown;
+}
+
+.worksTitle {
+  font-size: 2rem;
+  font-weight: bolder;
+  color: brown;
+}
+
+.profileInformationCard {
+  width: 70%;
+  display: block;
+  margin: auto;
+  margin-bottom: 5%;
+}

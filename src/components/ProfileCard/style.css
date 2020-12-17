@@ -1,0 +1,22 @@
+.userEditContainer {
+  background-color: #d6d6d6;
+}
+
+.hardSkillsTitle {
+  font-size: 2rem;
+  font-weight: bolder;
+  color: brown;
+}
+
+.worksTitle {
+  font-size: 2rem;
+  font-weight: bolder;
+  color: brown;
+}
+
+.profileInformationCard {
+  width: 70%;
+  display: block;
+  margin: auto;
+  margin-bottom: 5%;
+}

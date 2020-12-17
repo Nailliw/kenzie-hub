@@ -1,159 +1,222 @@
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import React, { useState, useEffect } from "react";
-import "./style.css";
+import {
+	Box,
+	Typography,
+	InputLabel,
+	FormControl,
+	FormHelperText,
+	TextField,
+	Select,
+	Button,
+} from "@material-ui/core/";
+
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { registerUserDataThunk } from "../../store/modules/usersData/thunk";
-import { useSelector, useDispatch } from "react-redux";
+
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+
+import useStyles from "./styles/makeStyles";
+import { RegisterHelper } from "./helper";
 
 const Register = () => {
-  let dispatch = useDispatch();
-  let token = useSelector((state) => state.UsersDataReducer.loggedUser);
-  const history = useHistory();
+	const [registerSuccess, setRegisterSuccess] = useState(false);
+	const history = useHistory();
 
-  const schema = yup.object().shape({
-    name: yup
-      .string()
-      .min(3, "Nome deve conter no mínimo 3 letras")
-      .required("Campo obrigatorio"),
-    email: yup.string().email("Email invalido").required("Campo obrigatório"),
-    bio: yup.string().required("Campo obrigatório"),
-    contact: yup.string().required("Campo obrigatório"),
-    course_module: yup.string().required("Campo obrigatório"),
-    password: yup
-      .string()
-      .min(6, "Senha deve conter no minimo 6 digitos")
-      .required("Campo obrigatório"),
-    password_confirmation: yup
-      .string()
-      .oneOf([yup.ref("password")], "Senhas não conferem"),
-  });
+	const schema = yup.object().shape({
+		name: yup
+			.string()
+			.min(3, "Nome deve conter no mínimo 3 letras")
+			.required("Campo obrigatório"),
+		email: yup.string().email("Email inválido").required("Campo obrigatório"),
+		bio: yup.string().required("Campo obrigatório"),
+		contact: yup.string().required("Campo obrigatório"),
+		course_module: yup.string().required("Campo obrigatório"),
+		password: yup
+			.string()
+			.min(6, "Senha deve conter no mínimo 6 dígitos")
+			.required("Campo obrigatório"),
+		password_confirmation: yup
+			.string()
+			.oneOf([yup.ref("password")], "Senhas não conferem"),
+	});
 
-  const { register, handleSubmit, errors, setError } = useForm({
-    resolver: yupResolver(schema),
-  });
+	const { register, handleSubmit, errors, setError } = useForm({
+		resolver: yupResolver(schema),
+	});
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      "& .MuiTextField-root": {
-        margin: theme.spacing(0.3),
-        width: "80%",
-      },
-    },
-  }));
+	const handleForm = (data) => {
+		console.log(data);
+		RegisterHelper(data, setError, setRegisterSuccess, history);
+	};
 
-  const classes = useStyles();
+	const classes = useStyles();
 
-  const handleForm = (data) => {
-    console.log(data);
-    dispatch(registerUserDataThunk(data));
-  };
+	return (
+		<Box className={classes.main}>
+			<form
+				onSubmit={handleSubmit(handleForm)}
+				className={classes.formRegister}
+			>
+				<Box className={classes.formInfo}>
+					<Box className={classes.logo} />
 
-  return (
-    <form onSubmit={handleSubmit(handleForm)} className={classes.root}>
-      <h1 className="labelCadastro">Cadastro de usuário</h1>
+					<Typography
+						component="h3"
+						variant="h3"
+						className={classes.labelCadastro}
+					>
+						Cadastro de Usuário
+					</Typography>
+				</Box>
+				<Box className={classes.inputArea}>
+					<Box className={classes.inputField}>
+						<TextField
+							className={classes.input}
+							variant="outlined"
+							label="Nome"
+							name="name"
+							margin="dense"
+							type="string"
+							inputRef={register}
+							error={!!errors.name}
+							helperText={errors.name?.message}
+						/>
+					</Box>
+					<Box className={classes.inputField}>
+						<TextField
+							className={classes.input}
+							variant="outlined"
+							label="Email"
+							name="email"
+							margin="dense"
+							type="email"
+							inputRef={register}
+							error={!!errors.email}
+							helperText={errors.email?.message}
+						/>
+					</Box>
+					<Box className={classes.inputField}>
+						<TextField
+							className={classes.input}
+							multiline
+							rowsMax={4}
+							variant="outlined"
+							label="
+        Biografia"
+							name="bio"
+							margin="dense"
+							type="string"
+							inputRef={register}
+							error={!!errors.bio}
+							helperText={errors.bio?.message}
+						/>
+					</Box>
+					<Box className={classes.inputField}>
+						<TextField
+							className={classes.input}
+							variant="outlined"
+							label="Contato"
+							name="contact"
+							margin="dense"
+							type="string"
+							inputRef={register}
+							error={!!errors.contact}
+							helperText={errors.contact?.message}
+						/>
+					</Box>
+					<Box className={classes.inputField}>
+						<TextField
+							className={classes.input}
+							variant="outlined"
+							label="Senha"
+							name="password"
+							margin="dense"
+							type="password"
+							inputRef={register}
+							error={!!errors.password}
+							helperText={errors.password?.message}
+						/>
+					</Box>
+					<Box className={classes.inputField}>
+						<TextField
+							className={classes.input}
+							variant="outlined"
+							label="Repita a senha"
+							name="password_confirmation"
+							margin="dense"
+							type="password"
+							inputRef={register}
+							error={!!errors.password}
+							helperText={errors.password_confirmation?.message}
+						/>
+					</Box>
+					<Box className={classes.inputField}>
+						<FormControl className={classes.select}>
+							<InputLabel
+								variant="outlined"
+								margin="dense"
+								size="small"
+								error={!!errors.course_module}
+								id="select-module"
+							>
+								Módulo do curso
+							</InputLabel>
 
-      <input ref={register} name="name" />
-      <input ref={register} name="email" />
-      <input ref={register} name="bio" />
-      <input ref={register} name="contact" />
-
-      <input ref={register} name="password" />
-      <input ref={register} name="password_confirmation" />
-      <select name="course_module">
-        <option value="">Selecione o Módulo</option>
-        <option value="primeira módulo (introdução ao FrontEnd)">
-          Primeiro módulo (introdução ao FrontEnd)
-        </option>
-        <option value="Segundo módulo (FrontEnd Avançado)">
-          Segundo módulo (FrontEnd Avançado)
-        </option>
-        <option value="Terceiro módulo (introdução ao BackEnd)">
-          Terceiro módulo (introdução ao BackEnd)
-        </option>
-        <option value="Quarto módulo (BackEnd Avançado)">
-          Quarto módulo (BackEnd Avançado)
-        </option>
-      </select>
-
-      {/* <TextField
-        ref={register}
-        id="outlined-search"
-        label="E-mail"
-        type="search"
-        variant="outlined"
-        name="email"
-        error={!!errors.email?.message}
-        helperText="teste"
-      /> */}
-
-      {/* <TextField
-        required
-        ref={register}
-        id="outlined-search"
-        label="Biografia"
-        type="search"
-        variant="outlined"
-        name="bio"
-      /> */}
-
-      {/* <TextField
-        required
-        ref={register}
-        id="outlined-search"
-        label="Contato"
-        type="search"
-        variant="outlined"
-        name="contact"
-      /> */}
-
-      {/* <TextField
-        required
-        ref={register}
-        id="outlined-search"
-        label="Módulo do curso"
-        type="search"
-        variant="outlined"
-        name="course_module"
-      /> */}
-
-      {/* <TextField
-        required
-        ref={register}
-        id="outlined-password-input"
-        label="Senha"
-        type="password"
-        autoComplete="current-password"
-        variant="outlined"
-        name="password"
-      /> */}
-
-      {/* <TextField
-        required
-        ref={register}
-        id="outlined-password-input"
-        label="Confirmar Senha"
-        type="password"
-        autoComplete="current-password"
-        variant="outlined"
-        name="password_confirmation"
-      /> */}
-
-      <Button
-        type="submit"
-        className="LoginButton"
-        variant="contained"
-        color="primary"
-      >
-        Cadastrar
-      </Button>
-      {/* <button type="submit">Cadastrar</button> */}
-    </form>
-  );
+							<Select
+								error={!!errors.course_module}
+								native={true}
+								name="course_module"
+								inputRef={register}
+								labelId="select-module"
+								label="Módulo do curso"
+								margin="dense"
+								size="small"
+								variant="outlined"
+							>
+								<option value=""></option>
+								<option value="primeira módulo (introdução ao FrontEnd)">
+									Primeiro módulo (Introdução ao FrontEnd)
+								</option>
+								<option value="Segundo módulo (FrontEnd Avançado)">
+									Segundo módulo (FrontEnd Avançado)
+								</option>
+								<option value="Terceiro módulo (introdução ao BackEnd)">
+									Terceiro módulo (Introdução ao BackEnd)
+								</option>
+								<option value="Quarto módulo (BackEnd Avançado)">
+									Quarto módulo (BackEnd Avançado)
+								</option>
+							</Select>
+							<FormHelperText style={{ color: "red" }}>
+								{errors.course_module?.message}
+							</FormHelperText>
+						</FormControl>
+					</Box>
+				</Box>
+				<Box className={classes.formBottom}>
+					<Button
+						type="submit"
+						className={classes.loginButton}
+						variant="outlined"
+					>
+						Cadastrar
+					</Button>
+					<div className={classes.feedbackMessage}>
+						{registerSuccess ? (
+							<h2 style={{ color: "rgb(8,53,108)", textAlign: "center" }}>
+								Registro Concluído
+							</h2>
+						) : (
+							<h2 style={{ color: "red", textAlign: "center" }}>
+								{errors.registerError?.message}
+							</h2>
+						)}
+					</div>
+				</Box>
+			</form>
+		</Box>
+	);
 };
 
 export default Register;

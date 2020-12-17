@@ -1,3 +1,8 @@
+header {
+  width: 100vw;
+  height: 6vh;
+}
+
 .paper {
   padding: 2.5vh 8vh;
   text-align: center;
@@ -20,7 +25,7 @@
 }
 
 #btn-logged {
-  color: 'white';
+  color: "white";
 
   margin-left: 50px !important;
   margin-right: 50px !important;
