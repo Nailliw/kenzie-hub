@@ -10,6 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   userRoot: {
@@ -17,19 +18,12 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 235,
+    width: "100%",
   },
   editProfile: {
     margin: "auto",
+    color: "white",
   },
-  // paperRoot: {
-  //   display: "flex",
-  //   flexWrap: "wrap",
-  //   "& > *": {
-  //     margin: theme.spacing(4),
-  //     width: theme.spacing(24),
-  //     height: theme.spacing(24),
-  //   },
-  // },
 }));
 
 const ProfileCard = (props) => {
@@ -37,18 +31,20 @@ const ProfileCard = (props) => {
   const classes = useStyles();
   console.log(props);
   return (
-    <div className="userEditContainer" style={{ display: "flex" }}>
-      <div>
-        <Card className={classes.userRoot}>
+    <div className="userEditContainer">
+      <div className="cardContainer">
+        <Card className={classes.userRoot} id="userCard">
           {props.data.avatar_url ? (
             <CardMedia
               className={classes.media}
               image={props.data.avatar_url}
+              id="cardPhoto"
               title="User photo"
             />
           ) : (
             <CardMedia
               className={classes.media}
+              id="cardPhoto"
               image="http://www.museucasadopontal.com.br/sites/default/files/styles/acervo-obras/public/artistas/artista_sem_foto_2.jpg?itok=AEfK4vPs"
               title="User photo"
             />
@@ -121,74 +117,78 @@ const ProfileCard = (props) => {
           </CardActions>
         </Card>
       </div>
-      <div>
-        <div className="test">
-          <p className="hardSkillsTitle">Hard Skills</p>
-          <div className={classes.paperRoot}>
+      <div className="techsAndWorkContainer">
+        <div className="techContainer">
+          <h1 className="hardSkillsTitle">Hard Skills</h1>
+          <Grid container spacing={3}>
             {props.data.techs.map((tech, index) => (
-              <div className="profileInformationCard" key={index}>
-                <TextField
-                  fullWidth
-                  disabled
-                  defaultValue={tech.title}
-                  variant="outlined"
-                  label="Título"
-                  name="title"
-                  margin="dense"
-                  type="string"
-                />
-                <TextField
-                  fullWidth
-                  disabled
-                  defaultValue={tech.status}
-                  variant="outlined"
-                  label="Status"
-                  name="status"
-                  margin="dense"
-                  type="string"
-                />
-              </div>
+              <Grid item xs={(window.innerWidth < 780 && 12) || 6}>
+                <Card className="profileInformationCard" key={index}>
+                  <TextField
+                    fullWidth
+                    disabled
+                    defaultValue={tech.title}
+                    variant="outlined"
+                    label="Título"
+                    name="title"
+                    margin="dense"
+                    type="string"
+                  />
+                  <TextField
+                    fullWidth
+                    disabled
+                    defaultValue={tech.status}
+                    variant="outlined"
+                    label="Status"
+                    name="status"
+                    margin="dense"
+                    type="string"
+                  />
+                </Card>
+              </Grid>
             ))}
-          </div>
+          </Grid>
         </div>
-        <div className="test">
-          <p className="worksTitle">Trabalhos</p>
-          <div className={classes.paperRoot}>
+        <div className="workContainer">
+          <h1 className="worksTitle">Trabalhos</h1>
+          <Grid container spacing={3}>
             {props.data.works.map((work, index) => (
-              <div className="profileInformationCard" key={index}>
-                <TextField
-                  fullWidth
-                  disabled
-                  defaultValue={work.title}
-                  variant="outlined"
-                  label="Título"
-                  name="title"
-                  margin="dense"
-                  type="string"
-                />
-                <TextField
-                  fullWidth
-                  disabled
-                  defaultValue={work.description}
-                  variant="outlined"
-                  label="Descrição"
-                  name="description"
-                  margin="dense"
-                  type="string"
-                />
-                <TextField
-                  fullWidth
-                  disabled
-                  defaultValue={work.deploy_url}
-                  variant="outlined"
-                  label="URL"
-                  name="deploy_url"
-                  margin="dense"
-                  type="string"
-                />
-              </div>
+              <Grid item xs={(window.innerWidth < 780 && 12) || 6}>
+                <Card className="profileInformationCard" key={index}>
+                  <TextField
+                    fullWidth
+                    disabled
+                    defaultValue={work.title}
+                    variant="outlined"
+                    label="Título"
+                    name="title"
+                    margin="dense"
+                    type="string"
+                  />
+                  <TextField
+                    fullWidth
+                    disabled
+                    defaultValue={work.description}
+                    variant="outlined"
+                    label="Descrição"
+                    name="description"
+                    margin="dense"
+                    type="string"
+                  />
+                  <TextField
+                    fullWidth
+                    disabled
+                    defaultValue={work.deploy_url}
+                    variant="outlined"
+                    label="URL"
+                    name="deploy_url"
+                    margin="dense"
+                    type="string"
+                  />
+                </Card>
+              </Grid>
             ))}
-          </div>
+          </Grid>
         </div>
       </div>
     </div>
