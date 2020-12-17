@@ -1,22 +1,50 @@
 .userEditContainer {
-  background-color: #d6d6d6;
+  background-color: #282c33 !important;
+  display: flex;
 }
 
 .hardSkillsTitle {
   font-size: 2rem;
   font-weight: bolder;
-  color: brown;
+  color: white !important;
+  text-align: center;
 }
 
 .worksTitle {
   font-size: 2rem;
   font-weight: bolder;
-  color: brown;
+  color: white !important;
+  text-align: center;
 }
 
 .profileInformationCard {
-  width: 70%;
-  display: block;
-  margin: auto;
-  margin-bottom: 5%;
+  background-color: white !important;
+  padding: 20px;
+}
+
+#userCard {
+  height: 600px;
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.techContainer {
+  width: 100%;
+}
+
+.workContainer {
+  width: 100%;
+}
+
+.techsAndWorkContainer {
+  flex-grow: 1;
+}
+
+@media (max-width: 728px) {
+  #userCard {
+    width: 100vw;
+    height: 100vh;
+  }
+  .userEditContainer {
+    display: block;
+  }
 }

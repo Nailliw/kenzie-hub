@@ -1,7 +1,7 @@
 import "./App.css";
-import { CssBaseline, Typography, Container } from "@material-ui/core";
+import { CssBaseline, Container } from "@material-ui/core";
 
-import NavBarMobile from "./components/NavBarMobile";
+import NavBar from "./components/NavBar";
 
 import Routes from "./Routes";
 
@@ -19,7 +19,7 @@ const App = () => {
       >
         <CssBaseline />
 
-        <NavBarMobile />
+        <NavBar />
         <Routes />
       </Container>
     </>
