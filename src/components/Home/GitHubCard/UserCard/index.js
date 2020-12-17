@@ -14,8 +14,14 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 const useStyles = makeStyles(() => ({
   card: {
-    width: "15vw",
-    margin: 10,
+    width: "160px",
+    height: "150px",
+    margin: "1rem",
+    "@media (min-width: 768px)": {
+      width: "150px",
+      height: "150px",
+      margin: "1rem",
+    },
   },
   root: {},
 }));

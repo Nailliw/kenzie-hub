@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 const useStyles = makeStyles(() => ({
   root: {
-    width: "100%",
+    width: "100vw",
   },
 }));
 const CardTemplate = ({
@@ -16,13 +16,7 @@ const CardTemplate = ({
 }) => {
   const classes = useStyles();
   return (
-    <Grid
-      container
-      direction="row"
-      justify="center"
-      alignItems="center"
-      className={classes.root}
-    >
+    <Grid container direction="row" justify="center" alignItems="center">
       <UserCard list={carlosData} />
       <UserCard list={felipeData} />
       <UserCard list={jefteData} />

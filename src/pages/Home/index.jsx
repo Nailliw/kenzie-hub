@@ -6,6 +6,7 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import GitHubCard from "../../components/Home/GitHubCard";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import backimage from "./img/programer-working_opa.jpg";
@@ -40,7 +41,7 @@ const useStyles = makeStyles(() => ({
 }));
 const Home = () => {
   const classes = useStyles();
-
+  const history = useHistory();
   const matches = useMediaQuery("(min-width:768px)");
   return (
     <div>
@@ -53,7 +54,11 @@ const Home = () => {
           </Typography>
 
           <CardActions>
-            <Button variant="contained" size="large">
+            <Button
+              onClick={() => history.push("/users")}
+              variant="contained"
+              size="large"
+            >
               Nossos Devs
             </Button>
           </CardActions>
