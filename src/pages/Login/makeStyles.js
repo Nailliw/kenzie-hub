@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   inputArea: {
-    height: "35%",
+    height: "33%",
     width: "100%",
     display: "flex",
     alignItems: "center",
