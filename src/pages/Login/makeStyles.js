@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     overflow: "hidden",
-    height: "94vh",
+    height: "90vh",
     width: "100vw",
     display: "flex",
     alignItems: "center",
