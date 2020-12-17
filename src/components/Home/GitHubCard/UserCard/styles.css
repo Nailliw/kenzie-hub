@@ -1,0 +1,14 @@
+#specialsffects:hover {
+  background: linear-gradient(-45deg, #b4b4b4, #686868, white);
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
