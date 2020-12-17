@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
-import { IsLogged } from "../../components/IsLogged";
-import { updateLoggedUserThunk } from "../../store/modules/loggedUser/thunk";
 import { selectUserThunk } from "../../store/modules/selectedUser/thunk";
+
+import { IsLogged } from "../../components/IsLogged";
 import IsValidState from "../../components/IsValidState";
-import ProfileCard from "../../components/ProfileCard";
+
+import ProfileCard from "../../components/Profile/ProfileCard";
 
 const Profile = () => {
 	const loggedUser = useSelector((state) => state.LoggedUserReducer);
@@ -17,24 +19,23 @@ const Profile = () => {
 	const { userID } = useParams();
 
 	useEffect(() => {
-		if (!IsLogged(dispatch) && location.pathname === "/users/profile") {
+		if (
+			!IsLogged(dispatch) &&
+			(location.pathname === "/users/profile" ||
+				location.pathname === "/users/edit")
+		) {
 			history.push("/users");
 		}
 	}, [loggedUser.token]);
-
-	console.log(userID);
-	console.log(selectedUser);
-	console.log(loggedUser);
 
 	useEffect(() => {
 		if (userID !== "profile") {
 			dispatch(selectUserThunk(userID));
 		}
-	}, []);
+	}, [userID]);
 
 	return (
 		<>
-			{console.log(loggedUser.user)}
 			{userID !== "profile"
 				? IsValidState(selectedUser) && (
 						<ProfileCard data={selectedUser} selectedUser={true} />
