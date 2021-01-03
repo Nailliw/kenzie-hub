@@ -1,3 +1,5 @@
+import { useHistory } from "react-router-dom";
+
 import {
   Card,
   CardHeader,
@@ -6,46 +8,18 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
-import GitHubCard from "../../components/Home/GitHubCard";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import backimage from "./img/programer-working_opa.jpg";
-import backimage2 from "./img/it-specialist.jpg";
-import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() => ({
-  card: {
-    padding: "5% 10% 5% 10%",
-    color: "white",
-    backgroundImage: `url(${backimage})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPositionY: "70%",
-    height: "65vh",
-  },
-  mobilecard: {
-    padding: "1% 10% 0% 10%",
-    color: "white",
-    backgroundImage: `url(${backimage2})`,
-    backgroundSize: "150%",
-  },
-  grid: {
-    minHeight: "15vh",
-    maxHeight: "25vh",
-    marginTop: "2%",
-    width: "30vw",
-  },
-  title: {
-    fontSize: "10px",
-  },
-}));
+import useStyles from "./styles/styles";
+import GitHubCard from "../../components/Home/GitHubCard";
+
 const Home = () => {
   const classes = useStyles();
+
   const history = useHistory();
-  const matches = useMediaQuery("(min-width:768px)");
+
   return (
     <div>
-      <Card className={matches ? classes.card : classes.mobilecard}>
+      <Card className={classes.card}>
         <CardHeader title="KENZIE HUB " />
         <CardContent>
           <Typography>
