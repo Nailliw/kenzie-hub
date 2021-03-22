@@ -25,4 +25,4 @@ Projeto realizado utilizando a <a href="https://gitlab.com/ka-br-jul-2020/kenzie
 </p>
 
 <h2 align="center">Deploy</h2>
-<p align="center"><a>https://kenzie-hub1.vercel.app/</a></p>
+<p align="center"><a href="https://kenzie-hub1.vercel.app/">https://kenzie-hub1.vercel.app/</a></p>
